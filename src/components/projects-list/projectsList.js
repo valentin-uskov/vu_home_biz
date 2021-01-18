@@ -1,18 +1,19 @@
 import React from 'react';
 import withHocs from './projectsListHoc';
+import EditForm from '../edit-form';
 
 const ProjectsList = ({data}) => {
     return (
-        <ul>
-            {
-                data.projects?.map((project, i) => {
-                    return <li key={i}>{project.name}</li>;
-                })
-            }
-            {/* </li key={}>
-                <h2>{console.log(data)}TEST</h2>
-            </li> */}
-        </ul>
+        <div>
+            <ul>
+                {
+                    data.projects?.map((project, i) => {
+                        return <li key={i}>{project.name}</li>;
+                    })
+                }
+            </ul>
+            <EditForm />
+        </div>
     );
 }
 

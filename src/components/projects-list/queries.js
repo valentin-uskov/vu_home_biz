@@ -5,9 +5,10 @@ export const projectsQuery = gql`
         projects {
             id
             name
-            budget,
+            budget
             currency {
                 name
+                sign
             }
         }
     }

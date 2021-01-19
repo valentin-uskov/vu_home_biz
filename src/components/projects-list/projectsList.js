@@ -8,7 +8,7 @@ const ProjectsList = ({data}) => {
             <ul>
                 {
                     data.projects?.map((project, i) => {
-                        return <li key={i}>{project.name}</li>;
+                        return <li key={i}>{project.name} {project.budget} {project.currency.sign}</li>;
                     })
                 }
             </ul>

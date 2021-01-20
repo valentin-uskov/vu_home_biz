@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import withHocs from './editFormHoc';
 
-const EditForm = ({ addCurrency }) => {
+const EditForm = ({ addProject }) => {
 
   const [name, setName] = useState('');
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
         if (name) {
-            console.log(addCurrency);
-            addCurrency({ name, sign: 'SIGN' });
+            addProject({ name, budget: 111, currencyId: '5fdb4b3821eb2253ba386da9', projectStatusId: 'pohui' });
         }
     };
 

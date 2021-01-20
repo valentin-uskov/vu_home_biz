@@ -2,12 +2,12 @@
 // import { compose } from 'recompose';
 import { graphql } from 'react-apollo';
 
-import { addCurrencyMutation } from './mutations';
+import { addProjectMutation } from './mutations';
 
-const withGraphqlAdd = graphql(addCurrencyMutation, {
+const withGraphqlAdd = graphql(addProjectMutation, {
     props: ({ mutate }) => ({
-        addCurrency: currency => mutate({
-            variables: currency,
+        addProject: project => mutate({
+            variables: project,
         }),
     }),
 });

@@ -3,11 +3,13 @@
 import { graphql } from 'react-apollo';
 
 import { addProjectMutation } from './mutations';
+import { projectsQuery } from '../projects-list/queries';
 
 const withGraphqlAdd = graphql(addProjectMutation, {
     props: ({ mutate }) => ({
         addProject: project => mutate({
             variables: project,
+            refetchQueries: [{ query: projectsQuery }]
         }),
     }),
 });

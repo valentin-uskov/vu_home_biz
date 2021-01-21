@@ -8,7 +8,7 @@ const EditForm = ({ addProject }) => {
     const handleSubmit = (ev) => {
         ev.preventDefault();
         if (name) {
-            addProject({ name, budget: 111, currencyId: '5fdb4b3821eb2253ba386da9', projectStatusId: 'pohui' });
+            addProject({ name, budget: Number('111'), currencyId: '5fdb4b3821eb2253ba386da9', projectStatusId: 'pohui' });
         }
     };
 

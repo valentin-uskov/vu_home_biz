@@ -5,7 +5,6 @@ const deleteButton = ({projectId, deleteProject }) => {
 
     const deleteProjectHandler = () => {
         deleteProject({ id: projectId });
-        console.log(projectId, deleteProject)
     };
 
     return (

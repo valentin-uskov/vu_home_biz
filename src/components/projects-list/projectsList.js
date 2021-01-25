@@ -7,8 +7,10 @@ import DeleteButton from '../delete-button';
 const ProjectsList = ({data}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [projectData, setProjectData] = useState({});
 
     const handleCloseModal = () => {
+        setProjectData({});
         setIsModalOpen(false);
     }
 
@@ -21,12 +23,16 @@ const ProjectsList = ({data}) => {
                             <h3>{project.name} </h3>
                             <span>{project.budget} {project.currency.sign} </span>
                             <DeleteButton projectId={project.id} />
+                            <button onClick={ () => {
+                                setProjectData(project);
+                                setIsModalOpen(true);
+                            }}>EDIT</button>
                         </li>;
                     })
                 }
             </ul>
             <button onClick={()=> { setIsModalOpen(true) }}>ADD NEW</button>
-            <EditForm isModalOpen={ isModalOpen } handleCloseModal={ handleCloseModal } />
+            <EditForm isModalOpen={ isModalOpen } projectData={ projectData } handleCloseModal={ handleCloseModal } />
         </div>
     );
 }

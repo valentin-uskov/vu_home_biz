@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import withHocs from './editFormHoc';
 
-const EditForm = ({ addProject, isModalOpen, projectData, handleCloseModal }) => {
+const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleCloseModal }) => {
 
     const [name, setName] = useState('');
     const [budget, setBudget] = useState(0);
@@ -15,9 +15,14 @@ const EditForm = ({ addProject, isModalOpen, projectData, handleCloseModal }) =>
                 addProject({ name, budget: Number(budget), currencyId, projectStatusId });
             }
         } else {
-            // editProject MUST NE HERE
+            updateProject({ id: projectData.id, name, budget: Number(budget), currencyId, projectStatusId });
         }
     };
+
+    useEffect(() => {
+        // FIXME FILL fileds if edit project must be here
+
+    }, [projectData])
 
     return (
         <div style={{
@@ -47,13 +52,13 @@ const EditForm = ({ addProject, isModalOpen, projectData, handleCloseModal }) =>
                     handleCloseModal();
                 } }>CLOSE</button>
                 <label>Project Name
-                <input name="name" onChange={ (ev) => { setName(ev.target.value) } } value={ projectData.name ? projectData.name : '' }></input></label>
+                <input name="name" onChange={ (ev) => { setName(ev.target.value) } }></input></label>
                 <label>budget
-                <input name="budget" type="number" onChange={ (ev) => { setBudget(ev.target.value) } } value={ projectData.budget ? projectData.budget : '' }></input></label>
+                <input name="budget" type="number" onChange={ (ev) => { setBudget(ev.target.value) } }></input></label>
                 <label>currency
-                <input name="currencyId" onChange={ (ev) => { setCurrencyId(ev.target.value) } } value={ projectData.currencyId ? projectData.currencyId : '' }></input></label>
+                <input name="currencyId" onChange={ (ev) => { setCurrencyId(ev.target.value) } }></input></label>
                 <label>projStat(TEMPORARY)
-                <input name="projectStatusId" onChange={ (ev) => { setProjectStatusId(ev.target.value) } } value={ projectData.projectStatusId ? projectData.projectStatusId : '' }></input></label>
+                <input name="projectStatusId" onChange={ (ev) => { setProjectStatusId(ev.target.value) } }></input></label>
                 <button >ADD TO DATA_BASE</button>
             </form>
         </div>

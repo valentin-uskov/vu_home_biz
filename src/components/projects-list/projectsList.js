@@ -2,20 +2,34 @@ import React, { useState } from 'react';
 import withHocs from './projectsListHoc';
 import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
+import SearchForm from '../search-form';
 // import EditButton from '../edit-button';
 
 const ProjectsList = ({data}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [projectData, setProjectData] = useState({});
+    const [searchValue, setSearchValue] = useState('');
 
     const handleCloseModal = () => {
         setProjectData({});
         setIsModalOpen(false);
     }
 
+    const handleChange = (event) => {
+        setSearchValue(event.target.value);
+    };
+
+    const handleSearch = (e) => {
+        if(e.charCode === 13) {
+            console.log(searchValue)
+        //   query by ENTER PRESS must be HERE FIXME
+        }
+      };
+
     return (
         <div>
+            <SearchForm handleChange={handleChange} handleSearch={handleSearch} />
             <ul>
                 {
                     data.projects?.map((project, i) => {

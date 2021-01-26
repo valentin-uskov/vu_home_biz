@@ -8,3 +8,12 @@ export const addProjectMutation = gql`
         }
     }
 `;
+
+export const updateProjectMutation = gql`
+    mutation updateProject($id: ID, $name: String!,  $budget: Int, $currencyId: String, $projectStatusId: String) {
+        updateProject(id: $id, name: $name, budget: $budget, currencyId: $currencyId, projectStatusId: $projectStatusId ) {
+            name,
+            budget
+        }
+    }
+`;

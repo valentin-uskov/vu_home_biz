@@ -1,7 +1,7 @@
 import React from 'react';
 import withHocs from './deleteButtonHoc';
 
-const deleteButton = ({projectId, deleteProject }) => {
+const DeleteButton = ({projectId, deleteProject }) => {
 
     const deleteProjectHandler = () => {
         deleteProject({ id: projectId });
@@ -12,4 +12,4 @@ const deleteButton = ({projectId, deleteProject }) => {
     );
 }
 
-export default withHocs(deleteButton);
+export default withHocs(DeleteButton);

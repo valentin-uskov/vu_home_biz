@@ -4,4 +4,10 @@ import { graphql } from 'react-apollo';
 
 import { projectsQuery } from './queries';
 
-export default graphql(projectsQuery);
+const withGraphQl = graphql(projectsQuery, {
+    options: ({ name = ''}) => ({
+        variables: { name },
+    }),
+})
+
+export default withGraphQl;

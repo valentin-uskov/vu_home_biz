@@ -8,7 +8,10 @@ const withGraphqlDelete = graphql(deleteProjectMutation, {
     props: ({ mutate }) => ({
         deleteProject: id => mutate({
             variables: id,
-            refetchQueries: [{ query: projectsQuery }]
+            refetchQueries: [{
+                query: projectsQuery,
+                variables: { name: '' },
+            }]
         }),
     }),
 });

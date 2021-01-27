@@ -22,8 +22,10 @@ const ProjectsList = ({data}) => {
 
     const handleSearch = (e) => {
         if(e.charCode === 13) {
-            console.log(searchValue)
-        //   query by ENTER PRESS must be HERE FIXME
+            data.fetchMore({
+                variables: { name: searchValue },
+                updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
+            })
         }
       };
 

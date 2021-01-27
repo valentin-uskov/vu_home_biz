@@ -11,7 +11,10 @@ const withGraphQl = compose(
         props: ({ mutate }) => ({
             addProject: project => mutate({
                 variables: project,
-                refetchQueries: [{ query: projectsQuery }]
+                refetchQueries: [{
+                    query: projectsQuery,
+                    variables: { name: '' },
+                }]
             }),
         }),
     }),
@@ -19,7 +22,10 @@ const withGraphQl = compose(
         props: ({ mutate }) => ({
             updateProject: project => mutate({
                 variables: project,
-                refetchQueries: [{ query: projectsQuery }]
+                refetchQueries: [{
+                    query: projectsQuery,
+                    variables: { name: '' },
+                }]
             }),
         }),
     })

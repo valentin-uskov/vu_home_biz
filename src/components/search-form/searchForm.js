@@ -10,6 +10,7 @@ const SearchForm = ({ handleChange, handleSearch }) => {
                 onKeyPress={(e) => handleSearch(e)}
                 placeholder="Input your search query and press ENTER"
             />
+            <button onClick={(e) => handleSearch(e)}>SEARCH</button>
         </div>
     );
 }

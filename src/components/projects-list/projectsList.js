@@ -21,7 +21,7 @@ const ProjectsList = ({data}) => {
     };
 
     const handleSearch = (e) => {
-        if(e.charCode === 13) {
+        if( (e.charCode === 13) || (e.target.tagName === 'BUTTON') ) {
             data.fetchMore({
                 variables: { name: searchValue },
                 updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,

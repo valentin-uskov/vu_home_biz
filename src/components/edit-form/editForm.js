@@ -6,16 +6,15 @@ const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleC
     const [name, setName] = useState('');
     const [budget, setBudget] = useState(0);
     const [currencyId, setCurrencyId] = useState('5fdb4b3821eb2253ba386da9');
-    const [projectStatusId, setProjectStatusId] = useState('FUCKING STATUS');
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
         if (!projectData.id ) {
             if (name) {
-                addProject({ name, budget: Number(budget), currencyId, projectStatusId });
+                addProject({ name, budget: Number(budget), currencyId });
             }
         } else {
-            updateProject({ id: projectData.id, name, budget: Number(budget), currencyId, projectStatusId });
+            updateProject({ id: projectData.id, name, budget: Number(budget), currencyId });
         }
     };
 
@@ -57,8 +56,6 @@ const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleC
                 <input name="budget" type="number" onChange={ (ev) => { setBudget(ev.target.value) } }></input></label>
                 <label>currency
                 <input name="currencyId" onChange={ (ev) => { setCurrencyId(ev.target.value) } }></input></label>
-                <label>projStat(TEMPORARY)
-                <input name="projectStatusId" onChange={ (ev) => { setProjectStatusId(ev.target.value) } }></input></label>
                 <button >ADD TO DATA_BASE</button>
             </form>
         </div>

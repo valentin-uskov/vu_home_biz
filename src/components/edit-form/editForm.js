@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import withHocs from './editFormHoc';
+// import withHocs from './editFormHoc';
 
 const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleCloseModal }) => {
 
@@ -62,4 +62,4 @@ const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleC
     );
 }
 
-export default withHocs( EditForm );
+export default EditForm;

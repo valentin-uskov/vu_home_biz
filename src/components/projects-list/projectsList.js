@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import withHocs from './projectsListHoc';
+// import withHocs from './projectsListHoc';
 import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
 import SearchForm from '../search-form';
@@ -22,12 +22,9 @@ const ProjectsList = ({data}) => {
 
     const handleSearch = (e) => {
         if( (e.charCode === 13) || (e.target.tagName === 'BUTTON') ) {
-            data.fetchMore({
-                variables: { name: searchValue },
-                updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
-            })
+            console.log(searchValue) /* Searching MUST BE, SERVERSIDE */
         }
-      };
+    };
 
     return (
         <div>
@@ -53,4 +50,4 @@ const ProjectsList = ({data}) => {
     );
 }
 
-export default withHocs(ProjectsList);
+export default ProjectsList;

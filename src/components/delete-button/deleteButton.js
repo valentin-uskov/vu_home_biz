@@ -1,5 +1,5 @@
 import React from 'react';
-import withHocs from './deleteButtonHoc';
+// import withHocs from './deleteButtonHoc';
 
 const DeleteButton = ({projectId, deleteProject }) => {
 
@@ -12,4 +12,4 @@ const DeleteButton = ({projectId, deleteProject }) => {
     );
 }
 
-export default withHocs(DeleteButton);
+export default DeleteButton;

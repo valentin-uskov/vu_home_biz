@@ -1,10 +1,10 @@
 import React from 'react';
-// import withHocs from './deleteButtonHoc';
 
-const DeleteButton = ({projectId, deleteProject }) => {
+const DeleteButton = () => {
 
     const deleteProjectHandler = () => {
-        deleteProject({ id: projectId });
+        console.log('project deleting must be here');
+        // deleteProject({ id: projectId });
     };
 
     return (

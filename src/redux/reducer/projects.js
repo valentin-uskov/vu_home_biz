@@ -9,7 +9,6 @@ const reducer = (state = {}, action) => {
     const { type, payload } = action;
     switch (type) {
         case LOAD_PROJECTS:
-            // console.log(payload.projects);
             return {
                 ...state,
                 projects: payload.projects /* tmp here*/

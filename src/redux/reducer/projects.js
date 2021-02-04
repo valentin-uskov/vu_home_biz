@@ -6,15 +6,16 @@ import {
   } from '../constants';
 
 const reducer = (state = {}, action) => {
-    const { type, payload, json } = action;
-
+    const { type, payload } = action;
     switch (type) {
         case LOAD_PROJECTS:
+            // console.log(payload.projects);
             return {
                 ...state,
+                projects: payload.projects /* tmp here*/
                 // loading: true,
                 // error: null,
-        };
+            };
         // case LOAD_PROJECTS + REQUEST:
         //     return {
         //         ...state,

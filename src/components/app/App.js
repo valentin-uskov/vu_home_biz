@@ -21,7 +21,6 @@ function App({ projects, loadProjects }) {
   );
 }
 
-
 const mapStateToProps = (state) => {
   const { projects } = state
   return { projects: projects }

@@ -3,6 +3,7 @@ import { LOAD_PROJECTS } from './constants';
 import fetch from 'isomorphic-fetch';
 
 export const loadProjects = () => async (dispatch, getState) => {
+
     const response = await fetch('http://localhost:3005/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -23,5 +24,5 @@ export const loadProjects = () => async (dispatch, getState) => {
     .then(res => res.json())
     .then(res => res.data);
 
-    dispatch({ type: LOAD_PROJECTS, payload: { projects: response.projects } })
+    dispatch({ type: LOAD_PROJECTS, payload: { projects: response.projects } });
   };

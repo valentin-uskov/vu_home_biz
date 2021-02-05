@@ -9,6 +9,7 @@ const reducer = (state = {}, action) => {
     const { type, payload } = action;
     switch (type) {
         case LOAD_PROJECTS:
+
             return {
                 ...state,
                 projects: payload.projects /* tmp here*/

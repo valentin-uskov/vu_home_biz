@@ -1,7 +1,17 @@
 
-import { createStore } from 'redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+import logger from './middleware/logger';
 
 import reducer from './reducer';
 
-export default createStore(reducer, devToolsEnhancer());
+
+const enhancer = applyMiddleware(
+    // thunk,
+    // routerMiddleware(history),
+    // api,
+    logger
+  );
+
+export default createStore(reducer,composeWithDevTools(enhancer));

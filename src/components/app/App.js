@@ -5,11 +5,11 @@ import ProjectsList from '../projects-list';
 
 import { loadProjects } from '../../redux/actions';
 
-const App = ({ projects, /*loadProjects*/ }) => {
+const App = ({ projects, onloadApp }) => {
 
-  // useEffect(() => {
-  //   loadProjects();
-  // }, [projects])
+  useEffect(() => {
+    onloadApp();
+  }, [])
 
 
   return (
@@ -26,4 +26,12 @@ const mapStateToProps = (state) => {
   return { projects: projects }
 }
 
-export default connect(mapStateToProps, loadProjects )(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    onloadApp: () => {
+      dispatch(loadProjects());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps )(App);

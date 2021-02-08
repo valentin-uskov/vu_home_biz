@@ -23,7 +23,7 @@ const App = ({ projects, onloadApp }) => {
 
 const mapStateToProps = (state) => {
   const { projects } = state
-  return { projects: projects }
+  return { projects: projects.entities }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps )(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

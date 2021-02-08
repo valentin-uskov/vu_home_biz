@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import withHocs from './projectsListHoc';
 import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
 import SearchForm from '../search-form';
 // import EditButton from '../edit-button';
 
-const ProjectsList = ({data}) => {
+const ProjectsList = ({ data }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [projectData, setProjectData] = useState({});
+    const [projectData, setProjectData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
+    useEffect(() => {
+        setProjectData(data);
+    }, [data])
+
     const handleCloseModal = () => {
-        setProjectData({});
+        setProjectData([]);
         setIsModalOpen(false);
     }
 
@@ -31,7 +35,7 @@ const ProjectsList = ({data}) => {
             <SearchForm handleChange={handleChange} handleSearch={handleSearch} />
             <ul>
                 {
-                    data.projects?.map((project, i) => {
+                    data.length ? data.map((project, i) => {
                         return <li key={project.id} style={{display: 'flex', alignItems: 'center'}}>
                             <h3>{project.name} </h3>
                             <span>{project.budget} {project.currency.sign} </span>
@@ -41,7 +45,7 @@ const ProjectsList = ({data}) => {
                                 setIsModalOpen(true);
                             }}>EDIT</button>
                         </li>;
-                    })
+                    }) : null
                 }
             </ul>
             <button onClick={()=> { setIsModalOpen(true) }}>ADD NEW</button>

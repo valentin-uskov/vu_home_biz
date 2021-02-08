@@ -11,7 +11,6 @@ import reducer from './reducer';
 const enhancer = applyMiddleware(
     // routerMiddleware(history),
     // api,
-
     thunk,
     logger
   );

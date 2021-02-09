@@ -3,17 +3,24 @@ import React, { useState, useEffect } from 'react';
 import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
 import SearchForm from '../search-form';
-// import EditButton from '../edit-button';
+// import EditButton from '../edit-button'
+import { loadProjects } from '../../redux/actions';
+import { connect } from 'react-redux';
 
-const ProjectsList = ({ data }) => {
+const ProjectsList = ({ projects, onloadApp }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [projectData, setProjectData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        setProjectData(data);
-    }, [data])
+        onloadApp();
+    }, [onloadApp])
+
+
+    // useEffect(() => {
+    //     setProjectData(data);
+    // }, [data])
 
     const handleCloseModal = () => {
         setProjectData([]);
@@ -35,7 +42,7 @@ const ProjectsList = ({ data }) => {
             <SearchForm handleChange={handleChange} handleSearch={handleSearch} />
             <ul>
                 {
-                    data.length ? data.map((project, i) => {
+                    projects.length ? projects.map((project, i) => {
                         return <li key={project.id} style={{display: 'flex', alignItems: 'center'}}>
                             <h3>{project.name} </h3>
                             <span>{project.budget} {project.currency.sign} </span>
@@ -54,4 +61,17 @@ const ProjectsList = ({ data }) => {
     );
 }
 
-export default ProjectsList;
+const mapStateToProps = (state) => {
+    const { projects } = state
+    return { projects: projects.entities }
+  }
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      onloadApp: () => {
+        dispatch(loadProjects());
+      }
+    };
+  };
+
+  export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);

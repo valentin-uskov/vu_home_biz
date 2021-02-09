@@ -20,18 +20,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null,
             };
         case LOAD_PROJECTS + SUCCESS:
         return {
                 ...state,
                 entities: payload.projects,
-                loading: false
+                loading: false,
+                loaded: true,
             };
         case LOAD_PROJECTS + FAILURE:
             return {
                 ...state,
                 loading: false,
+                loaded: false,
                 error: action.error,
             };
         default:

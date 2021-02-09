@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// import withHocs from './projectsListHoc';
+import { createStructuredSelector } from 'reselect';
 import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
 import SearchForm from '../search-form';
 // import EditButton from '../edit-button'
 import { loadProjects } from '../../redux/actions';
 import { connect } from 'react-redux';
+
+import { projectsListSelector } from '../../redux/selectors';
 
 const ProjectsList = ({ projects, onloadApp }) => {
 
@@ -16,11 +18,6 @@ const ProjectsList = ({ projects, onloadApp }) => {
     useEffect(() => {
         onloadApp();
     }, [onloadApp])
-
-
-    // useEffect(() => {
-    //     setProjectData(data);
-    // }, [data])
 
     const handleCloseModal = () => {
         setProjectData([]);
@@ -61,10 +58,9 @@ const ProjectsList = ({ projects, onloadApp }) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    const { projects } = state
-    return { projects: projects.entities }
-  }
+const mapStateToProps = createStructuredSelector({
+    projects: projectsListSelector,
+});
 
   const mapDispatchToProps = dispatch => {
     return {

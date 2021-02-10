@@ -1,42 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
-import EditForm from '../edit-form';
 import DeleteButton from '../delete-button';
-import SearchForm from '../search-form';
+
 // import EditButton from '../edit-button'
 import { loadProjects } from '../../redux/actions';
 import { connect } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
 
-import { projectsListSelector } from '../../redux/selectors';
+import {
+    projectsListSelector,
+    projectsLoadingSelector,
+    projectsLoadedSelector
+} from '../../redux/selectors';
 
-const ProjectsList = ({ projects, onloadApp }) => {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [projectData, setProjectData] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
+const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onloadApp }) => {
 
     useEffect(() => {
         onloadApp();
     }, [onloadApp])
 
-    const handleCloseModal = () => {
-        setProjectData([]);
-        setIsModalOpen(false);
-    }
-
-    const handleChange = (event) => {
-        setSearchValue(event.target.value);
-    };
-
-    const handleSearch = (e) => {
-        if( (e.charCode === 13) || (e.target.tagName === 'BUTTON') ) {
-            console.log(searchValue) /* Searching MUST BE, SERVERSIDE */
-        }
-    };
+    if (!projectsLoaded) return <CircularProgress />;
 
     return (
         <div>
-            <SearchForm handleChange={handleChange} handleSearch={handleSearch} />
             <ul>
                 {
                     projects.length ? projects.map((project, i) => {
@@ -44,21 +30,18 @@ const ProjectsList = ({ projects, onloadApp }) => {
                             <h3>{project.name} </h3>
                             <span>{project.budget} {project.currency.sign} </span>
                             <DeleteButton projectId={project.id} />
-                            <button onClick={ () => {
-                                setProjectData(project);
-                                setIsModalOpen(true);
-                            }}>EDIT</button>
+                            <button>EDIT</button>
                         </li>;
                     }) : null
                 }
             </ul>
-            <button onClick={()=> { setIsModalOpen(true) }}>ADD NEW</button>
-            <EditForm isModalOpen={ isModalOpen } projectData={ projectData } handleCloseModal={ handleCloseModal } />
         </div>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
+    projectsLoading: projectsLoadingSelector,
+    projectsLoaded: projectsLoadedSelector,
     projects: projectsListSelector,
 });
 

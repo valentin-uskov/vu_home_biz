@@ -1,14 +1,18 @@
 import { LOAD_PROJECTS, REQUEST, SUCCESS, FAILURE } from './constants';
 
+import { projectsLoadingSelector, projectsLoadedSelector } from './selectors';
+
 import fetch from 'isomorphic-fetch';
 
 export const loadProjects = () => async (dispatch, getState) => {
 
-  // const state = getState();
-  // const loading = reviewsLoadingSelector(state, { restaurantId });
-  // const loaded = reviewsLoadedSelector(state, { restaurantId });
+  // ХЗ зачем эта логика и тут и при отображении лоадера при загрузке проектов
+  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!!
+  const state = getState();
+  const loading = projectsLoadingSelector(state);
+  const loaded = projectsLoadedSelector(state);
 
-  // if (loading || loaded) return;
+  if (loading || loaded) return;
 
   dispatch({ type: LOAD_PROJECTS + REQUEST });
 

@@ -8,3 +8,19 @@ export const projectsListSelector = createSelector(
     projectsSelector,
     Object.values
 );
+
+export const projectSelector = createSelector(
+        projectsSelector,
+        (_, props) => props.id,
+        (entity, id) => entity[id]
+);
+
+// FIXME - move getById to utils
+// export const getById = (selector, defaultValue) =>
+//   createSelector(
+//     selector,
+//     (_, props) => props.id,
+//     (entity, id) => entity[id] || defaultValue
+//   );
+
+// export const productSelector = getById(productsSelector);

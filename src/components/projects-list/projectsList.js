@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
-import DeleteButton from '../delete-button';
-// import EditButton from '../edit-button'
+import ProjectItem from '../project-item'
 import { loadProjects } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
@@ -22,18 +21,11 @@ const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onloadApp }) 
 
     return (
         <div>
-            <ul>
-                {
-                    projects.map((project) => {
-                        return <li key={project.id} style={{display: 'flex', alignItems: 'center'}}>
-                                    <h3>{project.name} </h3>
-                                    <span>{project.budget} {project.currency.sign} </span>
-                                    <DeleteButton projectId={project.id} />
-                                    <button>EDIT</button>
-                                </li>;
-                    })
-                }
-            </ul>
+            {
+                projects.map(({ id }) => {
+                    return <ProjectItem key={id} id={id} />
+                })
+            }
         </div>
     );
 }

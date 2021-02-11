@@ -5,6 +5,8 @@ import {
     FAILURE,
 } from '../constants';
 
+import { arrToMap } from '../utils';
+
 const initialState = {
     loading: false,
     loaded: false,
@@ -24,7 +26,7 @@ const reducer = (state = initialState, action) => {
         case LOAD_PROJECTS + SUCCESS:
         return {
                 ...state,
-                entities: payload.projects,
+                entities: { ...arrToMap(payload.projects) },
                 loading: false,
                 loaded: true,
             };

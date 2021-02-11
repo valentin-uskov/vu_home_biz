@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
 import DeleteButton from '../delete-button';
-
 // import EditButton from '../edit-button'
 import { loadProjects } from '../../redux/actions';
 import { connect } from 'react-redux';
@@ -25,14 +24,14 @@ const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onloadApp }) 
         <div>
             <ul>
                 {
-                    projects.length ? projects.map((project, i) => {
+                    projects.map((project) => {
                         return <li key={project.id} style={{display: 'flex', alignItems: 'center'}}>
-                            <h3>{project.name} </h3>
-                            <span>{project.budget} {project.currency.sign} </span>
-                            <DeleteButton projectId={project.id} />
-                            <button>EDIT</button>
-                        </li>;
-                    }) : null
+                                    <h3>{project.name} </h3>
+                                    <span>{project.budget} {project.currency.sign} </span>
+                                    <DeleteButton projectId={project.id} />
+                                    <button>EDIT</button>
+                                </li>;
+                    })
                 }
             </ul>
         </div>

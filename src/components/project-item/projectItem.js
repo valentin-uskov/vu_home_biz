@@ -13,7 +13,7 @@ const ProjectItem = ({ project }) => {
         <div  style={{display: 'flex', alignItems: 'center'} }>
             <h3>{project.name}</h3>
             <span>{project.budget} {project.currency.sign} </span>
-            <DeleteButton projectId={project.id} />
+            <DeleteButton id={project.id} />
             <button>EDIT</button>
         </div>
     );

@@ -1,5 +1,6 @@
 import {
     LOAD_PROJECTS,
+    DELETE_PROJECT,
     REQUEST,
     SUCCESS,
     FAILURE,
@@ -31,10 +32,24 @@ const reducer = (state = initialState, action) => {
                 loaded: true,
             };
         case LOAD_PROJECTS + FAILURE:
+        return {
+            ...state,
+            loading: false,
+            loaded: false,
+            error: action.error,
+        };
+        case DELETE_PROJECT + REQUEST:
+            return {
+                ...state
+            };
+        case DELETE_PROJECT + SUCCESS:
+        return {
+                ...state,
+                entities: { ...arrToMap(payload.projects) },
+            };
+        case DELETE_PROJECT + FAILURE:
             return {
                 ...state,
-                loading: false,
-                loaded: false,
                 error: action.error,
             };
         default:

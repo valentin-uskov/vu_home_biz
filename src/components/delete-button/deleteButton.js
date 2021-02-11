@@ -1,15 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const DeleteButton = () => {
+import { deleteProject } from '../../redux/actions';
 
-    const deleteProjectHandler = () => {
-        console.log('project deleting must be here');
-        // deleteProject({ id: projectId });
-    };
+// import { projectSelector } from '../../redux/selectors';
+
+const DeleteButton = ({ id, deleteButtonClick }) => {
 
     return (
-        <button onClick={deleteProjectHandler}>X</button>
+        <button onClick={ deleteButtonClick }>DELETE - { id }</button>
     );
 }
 
-export default DeleteButton;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  deleteButtonClick: () => dispatch(deleteProject(ownProps.id))
+});
+
+export default connect(null, mapDispatchToProps)(DeleteButton);

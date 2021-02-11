@@ -1,4 +1,4 @@
-import { LOAD_PROJECTS, REQUEST, SUCCESS, FAILURE } from './constants';
+import { LOAD_PROJECTS, DELETE_PROJECT, REQUEST, SUCCESS, FAILURE } from './constants';
 
 import { projectsLoadingSelector, projectsLoadedSelector } from './selectors';
 
@@ -42,5 +42,31 @@ export const loadProjects = () => async (dispatch, getState) => {
     // dispatch(replace('/error'));
   }
 
+};
 
-  };
+
+export const deleteProject = (id) => async (dispatch, getState) => {
+  dispatch({ type: DELETE_PROJECT + REQUEST });
+  console.log(id);
+  try {
+    const response = await fetch('http://localhost:3005/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `
+        mutation {
+          deleteProject(id: "${ id }") {
+            id
+          }
+        }`
+      }),
+    })
+    .then(res => console.log(res));
+
+    dispatch({ type: DELETE_PROJECT + SUCCESS, payload: { projects: response.data.projects } });
+  } catch (error) {
+    // dispatch({ type: DELETE_PROJECT + FAILURE, error });
+    // dispatch(replace('/error'));
+  }
+
+};
+

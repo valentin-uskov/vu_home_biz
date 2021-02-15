@@ -47,7 +47,6 @@ export const loadProjects = () => async (dispatch, getState) => {
 
 export const deleteProject = (id) => async (dispatch, getState) => {
   dispatch({ type: DELETE_PROJECT + REQUEST });
-  console.log(id);
   try {
     const response = await fetch('http://localhost:3005/graphql', {
       method: 'POST',
@@ -59,12 +58,11 @@ export const deleteProject = (id) => async (dispatch, getState) => {
           }
         }`
       }),
-    })
-    .then(res => console.log(res));
+    });
 
-    dispatch({ type: DELETE_PROJECT + SUCCESS, payload: { projects: response.data.projects } });
+    dispatch({ type: DELETE_PROJECT + SUCCESS, payload: { id: id } });
   } catch (error) {
-    // dispatch({ type: DELETE_PROJECT + FAILURE, error });
+    dispatch({ type: DELETE_PROJECT + FAILURE, error });
     // dispatch(replace('/error'));
   }
 

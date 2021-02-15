@@ -43,9 +43,10 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case DELETE_PROJECT + SUCCESS:
-        return {
+            const { [payload.id]: value, ...newEntities } = state.entities; // it's OK? or fixme
+            return {
                 ...state,
-                entities: { ...arrToMap(payload.projects) },
+                entities: { ...newEntities }
             };
         case DELETE_PROJECT + FAILURE:
             return {

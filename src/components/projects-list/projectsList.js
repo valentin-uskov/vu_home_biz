@@ -36,12 +36,12 @@ const mapStateToProps = createStructuredSelector({
     projects: projectsListSelector,
 });
 
-  const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
-      onloadApp: () => {
-        dispatch(loadProjects());
-      }
+        onloadApp: () => {
+            dispatch(loadProjects());
+        }
     };
-  };
+};
 
-  export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);

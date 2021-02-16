@@ -3,9 +3,11 @@ import { combineReducers } from 'redux';
 // import history from '../../history';
 
 import projects from './projects';
+import modal from './modal';
 
 const reducer = combineReducers({
   projects,
+  modal
 });
 
 export default reducer;

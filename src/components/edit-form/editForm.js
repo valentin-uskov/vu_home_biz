@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { hideModal } from '../../redux/actions';
+import { modalTypeSelector } from '../../redux/selectors';
 // import withHocs from './editFormHoc';
 
-const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleCloseModal }) => {
+const EditForm = ({ modalType, hideModal }) => {
 
-    const [name, setName] = useState('');
-    const [budget, setBudget] = useState(0);
-    const [currencyId, setCurrencyId] = useState('5fdb4b3821eb2253ba386da9');
-
-    const handleSubmit = (ev) => {
-        ev.preventDefault();
-        if (!projectData.id ) {
-            if (name) {
-                addProject({ name, budget: Number(budget), currencyId });
-            }
-        } else {
-            updateProject({ id: projectData.id, name, budget: Number(budget), currencyId });
-        }
-    };
-
-    useEffect(() => {
-        // FIXME FILL fileds if edit project must be here
-
-    }, [projectData])
+    // const [name, setName] = useState('');
+    // const [budget, setBudget] = useState(0);
+    // const [currencyId, setCurrencyId] = useState('5fdb4b3821eb2253ba386da9');
 
     return (
         <div style={{
-                display: isModalOpen ? 'flex' : 'none',
+                display: modalType ? 'flex' : 'none',
                 position: 'fixed',
                 zIndex: '9',
                 top: '0',
@@ -45,21 +33,35 @@ const EditForm = ({ addProject, updateProject, isModalOpen, projectData, handleC
                     backgroundColor: '#fff',
                     padding: '30px'
                 }}
-                onSubmit={ handleSubmit }>
-                <button onClick={ (ev) => {
-                    ev.preventDefault();
-                    handleCloseModal();
-                } }>CLOSE</button>
+                >
+                <button onClick={
+                    (e) => { /* FIXME :) */
+                        e.preventDefault();
+                        hideModal()
+                    }
+                }>CLOSE</button>
                 <label>Project Name
-                <input name="name" onChange={ (ev) => { setName(ev.target.value) } }></input></label>
+                <input name="name"></input></label>
                 <label>budget
-                <input name="budget" type="number" onChange={ (ev) => { setBudget(ev.target.value) } }></input></label>
+                <input name="budget" type="number"></input></label>
                 <label>currency
-                <input name="currencyId" onChange={ (ev) => { setCurrencyId(ev.target.value) } }></input></label>
+                <input name="currencyId"></input></label>
                 <button >ADD TO DATA_BASE</button>
             </form>
         </div>
     );
 }
 
-export default EditForm;
+const mapStateToProps = createStructuredSelector({
+    modalType: modalTypeSelector,
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        hideModal: () => {
+            dispatch(hideModal());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditForm);

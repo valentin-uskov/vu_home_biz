@@ -1,8 +1,12 @@
-import { LOAD_PROJECTS, DELETE_PROJECT, REQUEST, SUCCESS, FAILURE } from './constants';
+import { LOAD_PROJECTS, DELETE_PROJECT, REQUEST, SUCCESS, FAILURE, SHOW_MODAL, ADDING_MODAL, HIDE_MODAL } from './constants';
 
 import { projectsLoadingSelector, projectsLoadedSelector } from './selectors';
 
 import fetch from 'isomorphic-fetch';
+
+
+export const showAddingModal = () => ({ type: SHOW_MODAL, payload: { modalType: ADDING_MODAL } });
+export const hideModal = () => ({ type: HIDE_MODAL });
 
 export const loadProjects = () => async (dispatch, getState) => {
 

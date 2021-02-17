@@ -1,5 +1,6 @@
 import {
     LOAD_PROJECTS,
+    ADD_PROJECT,
     DELETE_PROJECT,
     REQUEST,
     SUCCESS,
@@ -43,12 +44,37 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case DELETE_PROJECT + SUCCESS:
-            const { [payload.id]: value, ...newEntities } = state.entities; // it's OK? or fixme
+            const { [payload.id]: value, ...withoutDeleted } = state.entities; // it's OK? or fixme
             return {
                 ...state,
-                entities: { ...newEntities }
+                entities: { ...withoutDeleted }
             };
         case DELETE_PROJECT + FAILURE:
+            return {
+                ...state,
+                error: action.error,
+            };
+        case ADD_PROJECT + REQUEST:
+            return {
+                ...state
+            };
+        case ADD_PROJECT + SUCCESS:
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    'TEMP_ID': {
+                        id: 'TEMP_ID',
+                        name: payload.name,
+                        budget: payload.budget,
+                        currency: {
+                            name: 'TEMP_CUR_NAME',
+                            sign: 'TEMP_CUR_SIGN',
+                        }
+                    }
+                }
+            };
+        case ADD_PROJECT + FAILURE:
             return {
                 ...state,
                 error: action.error,

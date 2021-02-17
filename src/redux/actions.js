@@ -1,4 +1,14 @@
-import { LOAD_PROJECTS, DELETE_PROJECT, REQUEST, SUCCESS, FAILURE, SHOW_MODAL, ADDING_MODAL, HIDE_MODAL } from './constants';
+import {
+  LOAD_PROJECTS,
+  DELETE_PROJECT,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+  SHOW_MODAL,
+  ADDING_MODAL,
+  HIDE_MODAL,
+  ADD_PROJECT
+} from './constants';
 
 import { projectsLoadingSelector, projectsLoadedSelector } from './selectors';
 
@@ -45,7 +55,6 @@ export const loadProjects = () => async (dispatch, getState) => {
     dispatch({ type: LOAD_PROJECTS + FAILURE, error });
     // dispatch(replace('/error'));
   }
-
 };
 
 
@@ -69,6 +78,30 @@ export const deleteProject = (id) => async (dispatch, getState) => {
     dispatch({ type: DELETE_PROJECT + FAILURE, error });
     // dispatch(replace('/error'));
   }
-
 };
 
+
+
+export const addProject = (addingData) => async (dispatch, getState) => {
+
+  dispatch({ type: ADD_PROJECT + REQUEST });
+  try {
+    const response = await fetch('http://localhost:3005/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // FIXME > test values
+      body: JSON.stringify({ query: `
+        mutation {
+          addProject(name: "${ addingData.name }", budget: ${ addingData.budget }, currencyId: "${ addingData.currencyId }") {
+            name
+            budget
+          }
+        }`
+      }),
+    });
+    console.log(addingData);
+    dispatch({ type: ADD_PROJECT + SUCCESS, payload: addingData });
+  } catch (error) {
+    dispatch({ type: ADD_PROJECT + FAILURE, error });
+    // dispatch(replace('/error'));
+  }
+};

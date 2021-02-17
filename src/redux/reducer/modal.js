@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
         case SHOW_MODAL:
             return {
                 modalType: payload.modalType,
-                projectID: payload.projectID || initialState.projectID
+                projectID: payload.projectID || null
             }
         case HIDE_MODAL:
             return initialState

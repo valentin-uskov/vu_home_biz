@@ -63,11 +63,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 entities: {
                     ...state.entities,
-                    'TEMP_ID': {
-                        id: 'TEMP_ID',
+                    [payload.id]: {
+                        id: payload.id,
                         name: payload.name,
                         budget: payload.budget,
-                        currency: {
+                        currency: { /* FIXME */
                             name: 'TEMP_CUR_NAME',
                             sign: 'TEMP_CUR_SIGN',
                         }
@@ -84,4 +84,4 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-  export default reducer;
+export default reducer;

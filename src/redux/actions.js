@@ -85,20 +85,30 @@ export const deleteProject = (id) => async (dispatch, getState) => {
 export const addProject = (addingData) => async (dispatch, getState) => {
 
   dispatch({ type: ADD_PROJECT + REQUEST });
+
+  const generatedId = function () { /* FIXME - move me anywhere */
+    var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+        return (Math.random() * 16 | 0).toString(16);
+    }).toLowerCase();
+  };
+  addingData.id = generatedId();
+
   try {
     const response = await fetch('http://localhost:3005/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }, // FIXME > test values
       body: JSON.stringify({ query: `
         mutation {
-          addProject(name: "${ addingData.name }", budget: ${ addingData.budget }, currencyId: "${ addingData.currencyId }") {
+          addProject(id: "${ addingData.id }", name: "${ addingData.name }", budget: ${ addingData.budget }, currencyId: "${ addingData.currencyId }") {
+            id
             name
             budget
           }
         }`
       }),
     });
-    console.log(addingData);
+
     dispatch({ type: ADD_PROJECT + SUCCESS, payload: addingData });
   } catch (error) {
     dispatch({ type: ADD_PROJECT + FAILURE, error });

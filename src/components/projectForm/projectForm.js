@@ -1,11 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { hideModal } from '../../redux/actions';
 import { addProject } from '../../redux/actions';
+import useForm from '../../hooks/useForm';
 
+const INITIAL_VALUES = {
+    name: '',
+    budget: 0,
+    currencyId: '5fdb4b3821eb2253ba386da9',
+};
 
 const ProjectForm = ({ formSubmit, hideModal }) => {
+    const { values, handlers, reset } = useForm(INITIAL_VALUES);
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault();
+        formSubmit(values);
+        reset();
+    };
+
+    const handleClose = (ev) => {
+        ev.preventDefault();
+        hideModal()
+        reset();
+    }
 
     return (
         <form style={{
@@ -16,26 +35,17 @@ const ProjectForm = ({ formSubmit, hideModal }) => {
                 backgroundColor: '#fff',
                 padding: '30px'
             }}
-            // onSubmit={ (e) => { e.preventDefault() } }
+            onSubmit={ handleSubmit }
             >
-            <button onClick={
-                (e) => { /* FIXME :) */
-                    e.preventDefault();
-                    hideModal()
-                }
-            }>CLOSE</button>
+            <button onClick={ handleClose }>CLOSE</button>
             <label>Project Name
-            <input name="name"></input></label>
+            <input name="name" { ...handlers.name } /></label>
             <label>budget
-            <input name="budget" type="number"></input></label>
+            <input name="budget" type="number" { ...handlers.budget } /></label>
             <label>currency
-            <input name="currencyId"></input></label>
-            <button onClick={
-                (e) => { /* FIXME :) */
-                    e.preventDefault();
-                    formSubmit();
-                }
-            }>ADD TO DATA_BASE</button>
+                {/* FIXME >>> */}
+            <input name="currencyId" { ...handlers.currencyId } /></label>
+            <button>ADD TO DATA_BASE</button>
         </form>
     );
 }
@@ -47,8 +57,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => {
     return {
-        formSubmit: () => {
-            dispatch(addProject({ 'name': 'TEST', 'budget': 777, 'currencyId': '5fdb4b3821eb2253ba386da9' }));
+        formSubmit: (values) => {
+            dispatch(addProject({ ...values }));
         },
         hideModal: () => {
             dispatch(hideModal());

@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-
+import { getById } from './utils'
 
 export const projectsLoadingSelector = (state) => state.projects.loading;
 export const projectsLoadedSelector = (state) => state.projects.loaded;
 
-export const modalTypeSelector = (state) => state.modal?.modalType;
-
+export const modalTypeSelector = (state) => state.modal?.modalType; /* FIXME */
 const projectsSelector = (state) => state.projects.entities;
 
 export const projectsListSelector = createSelector(
@@ -13,18 +12,13 @@ export const projectsListSelector = createSelector(
     Object.values
 );
 
-export const projectSelector = createSelector(
-        projectsSelector,
-        (_, props) => props.id,
-        (entity, id) => entity[id]
+export const projectSelector = getById(projectsSelector);
+
+const currenciesSelector = (state) => state.currencies.entities;
+
+export const currencySelector = getById(currenciesSelector);
+
+export const currenciesListSelector = createSelector(
+    currenciesSelector,
+    Object.values
 );
-
-// FIXME - move getById to utils
-// export const getById = (selector, defaultValue) =>
-//   createSelector(
-//     selector,
-//     (_, props) => props.id,
-//     (entity, id) => entity[id] || defaultValue
-//   );
-
-// export const productSelector = getById(productsSelector);

@@ -11,11 +11,11 @@ import {
     projectsLoadedSelector
 } from '../../redux/selectors';
 
-const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onloadApp }) => {
+const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onLoadProjects }) => {
 
     useEffect(() => {
-        onloadApp();
-    }, [onloadApp])
+        onLoadProjects();
+    }, [onLoadProjects])
 
     if (!projectsLoaded) return <CircularProgress />;
 
@@ -38,7 +38,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onloadApp: () => {
+        onLoadProjects: () => {
             dispatch(loadProjects());
         }
     };

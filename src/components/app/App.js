@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import ProjectsList from '../projects-list';
 import SearchForm from '../search-form';
 import Modal from '../modal';
 
-import { showAddingModal } from '../../redux/actions'
+import { showAddingModal, loadCurrencies } from '../../redux/actions'
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-const App = ({showAddingModal}) => {
+const App = ({showAddingModal, onLoadApp}) => {
+
+  useEffect(() => {
+    onLoadApp();
+  }, [onLoadApp])
 
   return (
       <div className="App">
@@ -25,6 +29,9 @@ const mapDispatchToProps = dispatch => {
   return {
     showAddingModal: () => {
       dispatch(showAddingModal());
+    },
+    onLoadApp: () => {
+      dispatch(loadCurrencies());
     }
   };
 };

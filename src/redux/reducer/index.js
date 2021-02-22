@@ -4,10 +4,12 @@ import { combineReducers } from 'redux';
 
 import projects from './projects';
 import modal from './modal';
+import currencies from './currencies';
 
 const reducer = combineReducers({
   projects,
-  modal
+  modal,
+  currencies
 });
 
 export default reducer;

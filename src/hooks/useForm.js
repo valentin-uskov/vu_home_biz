@@ -5,8 +5,10 @@ const useForm = (initialValues = {}) => {
 
   const setValue = (key, value) => setValues({ ...values, [key]: value });
 
-  const onChange = (key) => (ev) =>
-    setValue(key, ev.target ? ev.target.value : ev);
+  const onChange = (key) => (ev) => {
+      setValue(key, ev.target ? ev.target.value : ev);
+
+  }
 
   return {
     values,

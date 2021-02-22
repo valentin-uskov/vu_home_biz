@@ -1,16 +1,17 @@
 import {
   LOAD_PROJECTS,
   DELETE_PROJECT,
+  ADD_PROJECT,
+  LOAD_CURRENCIES,
   REQUEST,
   SUCCESS,
   FAILURE,
   SHOW_MODAL,
   ADDING_MODAL,
   HIDE_MODAL,
-  ADD_PROJECT
 } from './constants';
 
-import { projectsLoadingSelector, projectsLoadedSelector } from './selectors';
+import { projectsLoadingSelector, projectsLoadedSelector, currencySelector } from './selectors';
 
 import fetch from 'isomorphic-fetch';
 
@@ -21,7 +22,7 @@ export const hideModal = () => ({ type: HIDE_MODAL });
 export const loadProjects = () => async (dispatch, getState) => {
 
   // ХЗ зачем эта логика и тут и при отображении лоадера при загрузке проектов
-  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!!
+  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!! FIXME
   const state = getState();
   const loading = projectsLoadingSelector(state);
   const loaded = projectsLoadedSelector(state);
@@ -86,13 +87,19 @@ export const addProject = (addingData) => async (dispatch, getState) => {
 
   dispatch({ type: ADD_PROJECT + REQUEST });
 
-  const generatedId = function () { /* FIXME - move me anywhere */
+  const generatedId = (() => { /* FIXME - move me anywhere */
     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
         return (Math.random() * 16 | 0).toString(16);
     }).toLowerCase();
-  };
-  addingData.id = generatedId();
+  })();
+
+  addingData.id = generatedId; /* FIXME */
+
+  const { id, name, budget, currencyId } = addingData;
+
+  const state = getState();
+  const currency = currencySelector( state, { id: currencyId });
 
   try {
     const response = await fetch('http://localhost:3005/graphql', {
@@ -100,7 +107,7 @@ export const addProject = (addingData) => async (dispatch, getState) => {
       headers: { 'Content-Type': 'application/json' }, // FIXME > test values
       body: JSON.stringify({ query: `
         mutation {
-          addProject(id: "${ addingData.id }", name: "${ addingData.name }", budget: ${ addingData.budget }, currencyId: "${ addingData.currencyId }") {
+          addProject(id: "${ id }", name: "${ name }", budget: ${ budget }, currencyId: "${ currencyId }") {
             id
             name
             budget
@@ -109,9 +116,44 @@ export const addProject = (addingData) => async (dispatch, getState) => {
       }),
     });
 
-    dispatch({ type: ADD_PROJECT + SUCCESS, payload: addingData });
+    dispatch({ type: ADD_PROJECT + SUCCESS, payload: { ...addingData, currency: currency } });
   } catch (error) {
-    dispatch({ type: ADD_PROJECT + FAILURE, error });
+    // dispatch({ type: ADD_PROJECT + FAILURE, error });
     // dispatch(replace('/error'));
   }
 };
+
+
+export const loadCurrencies = () => async (dispatch, getState) => {
+
+  // ХЗ зачем эта логика и тут и при отображении лоадера при загрузке проектов
+  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!! FIXME
+  const state = getState();
+  const loaded = projectsLoadedSelector(state);
+
+  if ( loaded ) return;
+
+  dispatch({ type: LOAD_CURRENCIES + REQUEST });
+
+  try {
+    const response = await fetch('http://localhost:3005/graphql', {
+      method: 'POST', /* FIXME ??? ( maybe GET ? not here only )*/
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `
+        {
+          currencies {
+            id
+            name
+            sign
+          }
+        }`
+      }),
+    })
+    .then(res => res.json());
+    dispatch({ type: LOAD_CURRENCIES + SUCCESS, payload: { currencies: response.data.currencies } });
+  } catch (error) {
+    dispatch({ type: LOAD_CURRENCIES + FAILURE, error });
+    // dispatch(replace('/error'));
+  }
+};
+

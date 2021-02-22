@@ -68,8 +68,8 @@ const reducer = (state = initialState, action) => {
                         name: payload.name,
                         budget: payload.budget,
                         currency: { /* FIXME */
-                            name: 'TEMP_CUR_NAME',
-                            sign: 'TEMP_CUR_SIGN',
+                            name: payload.currency.name,
+                            sign: payload.currency.sign,
                         }
                     }
                 }

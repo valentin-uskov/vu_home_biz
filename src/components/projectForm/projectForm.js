@@ -13,11 +13,14 @@ const INITIAL_VALUES = {
 };
 
 const ProjectForm = ({ currencies, formSubmit, onCloseModal }) => {
+
     const { values, handlers, reset } = useForm(INITIAL_VALUES);
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        formSubmit(values);
+        // FIXME !! newValues >>
+        const newValues = { ...values, currencyId: (values.currencyId ? values.currencyId : currencies[0].id) };
+        formSubmit(newValues);
         reset();
     };
 
@@ -40,13 +43,13 @@ const ProjectForm = ({ currencies, formSubmit, onCloseModal }) => {
             >
             <button onClick={ handleClose }>CLOSE</button>
             <label>Project Name
-                <input name="name" { ...handlers.name } />
+                <input name="name" type="text" { ...handlers.name } />
             </label>
             <label>budget
                 <input name="budget" type="number" { ...handlers.budget } />
             </label>
             <label>currency
-                <select name="currencyId" value={ currencies[2]?.id } { ...handlers.currencyId } >
+                <select name="currencyId" { ...handlers.currencyId } >
                 {
                     currencies.map((currency, i) => {
                         return (

@@ -15,7 +15,6 @@ import { projectsLoadingSelector, projectsLoadedSelector, currencySelector } fro
 
 import fetch from 'isomorphic-fetch';
 
-
 export const showAddingModal = () => ({ type: SHOW_MODAL, payload: { modalType: ADDING_MODAL } });
 export const hideModal = () => ({ type: HIDE_MODAL });
 
@@ -104,7 +103,7 @@ export const addProject = (addingData) => async (dispatch, getState) => {
   try {
     const response = await fetch('http://localhost:3005/graphql', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }, // FIXME > test values
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: `
         mutation {
           addProject(id: "${ id }", name: "${ name }", budget: ${ budget }, currencyId: "${ currencyId }") {
@@ -116,7 +115,7 @@ export const addProject = (addingData) => async (dispatch, getState) => {
       }),
     });
 
-    dispatch({ type: ADD_PROJECT + SUCCESS, payload: { ...addingData, currency: currency } });
+    dispatch({ type: ADD_PROJECT + SUCCESS, payload: { id, name, budget, currency } });
   } catch (error) {
     // dispatch({ type: ADD_PROJECT + FAILURE, error });
     // dispatch(replace('/error'));

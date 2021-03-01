@@ -4,10 +4,10 @@ import ProjectsList from '../projects-list';
 import SearchForm from '../search-form';
 import Modal from '../modal';
 
-import { showAddingModal, loadCurrencies } from '../../redux/actions'
+import { showProjectFormModal, loadCurrencies } from '../../redux/actions'
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-const App = ({showAddingModal, onLoadApp}) => {
+const App = ({ showAddingModal, onLoadApp }) => {
 
   useEffect(() => {
     onLoadApp();
@@ -28,7 +28,7 @@ const App = ({showAddingModal, onLoadApp}) => {
 const mapDispatchToProps = dispatch => {
   return {
     showAddingModal: () => {
-      dispatch(showAddingModal());
+      dispatch(showProjectFormModal());
     },
     onLoadApp: () => {
       dispatch(loadCurrencies());

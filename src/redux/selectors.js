@@ -5,6 +5,8 @@ export const projectsLoadingSelector = (state) => state.projects.loading;
 export const projectsLoadedSelector = (state) => state.projects.loaded;
 
 export const modalTypeSelector = (state) => state.modal?.modalType; /* FIXME */
+export const modalProjectIdSelector = (state) => state.modal?.projectId; /* FIXME */
+
 const projectsSelector = (state) => state.projects.entities;
 
 export const projectsListSelector = createSelector(

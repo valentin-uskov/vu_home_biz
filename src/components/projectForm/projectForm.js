@@ -2,25 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { hideModal } from '../../redux/actions';
-import { addProject } from '../../redux/actions';
+import { addProject, updateProject } from '../../redux/actions';
 import useForm from '../../hooks/useForm';
-import { currenciesListSelector } from '../../redux/selectors';
+import { currenciesListSelector, projectSelector } from '../../redux/selectors';
 
+// FIXME move this logic to USEFORM
 const INITIAL_VALUES = {
     name: '',
     budget: 0,
     currencyId: '',
-};
+}
 
-const ProjectForm = ({ currencies, formSubmit, onCloseModal }) => {
+const ProjectForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
 
-    const { values, handlers, reset } = useForm(INITIAL_VALUES);
+    const { values, handlers, reset } = useForm(INITIAL_VALUES, project);
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        // FIXME !! newValues >>
+        // FIXME !! newValues (its for defalut currency!) >>
         const newValues = { ...values, currencyId: (values.currencyId ? values.currencyId : currencies[0].id) };
-        formSubmit(newValues);
+        id ? updateProject({...newValues, id}) : addProject(newValues);
         reset();
     };
 
@@ -29,6 +30,8 @@ const ProjectForm = ({ currencies, formSubmit, onCloseModal }) => {
         onCloseModal()
         reset();
     }
+
+    // if (!project) return null;
 
     return (
         <form style={{
@@ -66,15 +69,18 @@ const ProjectForm = ({ currencies, formSubmit, onCloseModal }) => {
     );
 }
 
-
 const mapStateToProps = createStructuredSelector({
+    project: projectSelector,
     currencies: currenciesListSelector,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        formSubmit: (values) => {
+        addProject: (values) => {
             dispatch(addProject({ ...values }));
+        },
+        updateProject: (values) => {
+            dispatch(updateProject({ ...values }));
         },
         onCloseModal: () => {
             dispatch(hideModal());

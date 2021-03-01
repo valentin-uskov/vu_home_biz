@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { modalTypeSelector } from '../../redux/selectors';
+import { modalTypeSelector, modalProjectIdSelector } from '../../redux/selectors';
 import ProjectForm from '../projectForm';
 
-const Modal = ({ modalType }) => {
+const Modal = ({ modalType, projectId }) => {
 
     return (
         <div style={{
@@ -15,18 +15,19 @@ const Modal = ({ modalType }) => {
                 left: '0',
                 right: '0',
                 bottom: '0',
-                backgroundColor: 'rgba(0,0,0,0.7)'  ,
+                backgroundColor: 'rgba(0,0,0,0.7)',
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column'
             }}>
-            <ProjectForm />
+            <ProjectForm id={ projectId } />
         </div>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     modalType: modalTypeSelector,
+    projectId: modalProjectIdSelector,
 });
 
 export default connect(mapStateToProps)(Modal);

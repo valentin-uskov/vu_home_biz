@@ -5,7 +5,7 @@ import {
 
 const initialState = {
     modalType: null,
-    projectID: null
+    projectId: null
   }
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
         case SHOW_MODAL:
             return {
                 modalType: payload.modalType,
-                projectID: payload.projectID || null
+                projectId: payload.projectId || null
             }
         case HIDE_MODAL:
             return initialState

@@ -1,6 +1,7 @@
 import {
     LOAD_PROJECTS,
     ADD_PROJECT,
+    UPDATE_PROJECT,
     DELETE_PROJECT,
     REQUEST,
     SUCCESS,
@@ -59,6 +60,7 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case ADD_PROJECT + SUCCESS:
+
             return {
                 ...state,
                 entities: {
@@ -67,7 +69,7 @@ const reducer = (state = initialState, action) => {
                         id: payload.id,
                         name: payload.name,
                         budget: payload.budget,
-                        currency: { /* FIXME */
+                        currency: {
                             name: payload.currency.name,
                             sign: payload.currency.sign,
                         }
@@ -75,6 +77,31 @@ const reducer = (state = initialState, action) => {
                 }
             };
         case ADD_PROJECT + FAILURE:
+            return {
+                ...state,
+                error: action.error,
+            };
+        case UPDATE_PROJECT + REQUEST:
+            return {
+                ...state
+            };
+        case UPDATE_PROJECT + SUCCESS:
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    [payload.id]: {
+                        id: payload.id,
+                        name: payload.name,
+                        budget: payload.budget,
+                        currency: {
+                            name: payload.currency.name,
+                            sign: payload.currency.sign,
+                        }
+                    }
+                }
+            };
+        case UPDATE_PROJECT + FAILURE:
             return {
                 ...state,
                 error: action.error,

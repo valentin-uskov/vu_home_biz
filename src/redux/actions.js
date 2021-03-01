@@ -2,12 +2,13 @@ import {
   LOAD_PROJECTS,
   DELETE_PROJECT,
   ADD_PROJECT,
+  UPDATE_PROJECT,
   LOAD_CURRENCIES,
   REQUEST,
   SUCCESS,
   FAILURE,
   SHOW_MODAL,
-  ADDING_MODAL,
+  PROJECT_FORM_MODAL,
   HIDE_MODAL,
 } from './constants';
 
@@ -15,7 +16,11 @@ import { projectsLoadingSelector, projectsLoadedSelector, currencySelector } fro
 
 import fetch from 'isomorphic-fetch';
 
-export const showAddingModal = () => ({ type: SHOW_MODAL, payload: { modalType: ADDING_MODAL } });
+export const showProjectFormModal = (projectId) => ({
+  type: SHOW_MODAL,
+  payload: { modalType: PROJECT_FORM_MODAL, projectId: projectId }
+});
+
 export const hideModal = () => ({ type: HIDE_MODAL });
 
 export const loadProjects = () => async (dispatch, getState) => {
@@ -41,6 +46,7 @@ export const loadProjects = () => async (dispatch, getState) => {
             name
             budget
             currency {
+                id
                 name
                 sign
             }
@@ -79,8 +85,6 @@ export const deleteProject = (id) => async (dispatch, getState) => {
     // dispatch(replace('/error'));
   }
 };
-
-
 
 export const addProject = (addingData) => async (dispatch, getState) => {
 
@@ -122,6 +126,37 @@ export const addProject = (addingData) => async (dispatch, getState) => {
   }
 };
 
+
+export const updateProject = (updatingData) => async (dispatch, getState) => {
+
+  dispatch({ type: UPDATE_PROJECT + REQUEST });
+
+  const { id, name, budget, currencyId } = updatingData;
+
+  const state = getState();
+  const currency = currencySelector( state, { id: currencyId });
+
+  try {
+    const response = await fetch('http://localhost:3005/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `
+        mutation {
+          updateProject(id: "${ id }", name: "${ name }", budget: ${ budget }, currencyId: "${ currencyId }") {
+            id
+            name
+            budget
+          }
+        }`
+      }),
+    });
+
+    dispatch({ type: UPDATE_PROJECT + SUCCESS, payload: { id, name, budget, currency } });
+  } catch (error) {
+    // dispatch({ type: UPDATE_PROJECT + FAILURE, error });
+    // dispatch(replace('/error'));
+  }
+};
 
 export const loadCurrencies = () => async (dispatch, getState) => {
 

@@ -6,15 +6,9 @@ import { addProject, updateProject } from '../../redux/actions';
 import useForm from '../../hooks/useForm';
 import { currenciesListSelector, projectSelector } from '../../redux/selectors';
 
-const INITIAL_VALUES = {
-    name: '',
-    budget: 0,
-    currencyId: '',
-}
-
 const ProjectForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
 
-    const { values, handlers, reset } = useForm(INITIAL_VALUES, project, currencies);
+    const { values, handlers, reset } = useForm(project, currencies);
 
     const handleSubmit = (ev) => {
         ev.preventDefault();

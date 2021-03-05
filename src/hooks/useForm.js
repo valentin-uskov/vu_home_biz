@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 
-const useForm = (initialValues, project, currencies) => {
+const INITIAL_VALUES = {
+    name: '',
+    budget: 0,
+    currencyId: '',
+}
 
-  const [values, setValues] = useState(initialValues);
+const useForm = (project, currencies) => {
+
+  const [values, setValues] = useState(INITIAL_VALUES);
 
   const setValue = (key, value) => setValues({ ...values, [key]: value });
 
@@ -17,7 +23,7 @@ const useForm = (initialValues, project, currencies) => {
 
   return {
     values,
-    reset: () => setValues(initialValues),
+    reset: () => setValues(INITIAL_VALUES),
     handlers: Object.keys(values).reduce(
       (acc, key) => ({
         ...acc,

@@ -6,7 +6,6 @@ import { addProject, updateProject } from '../../redux/actions';
 import useForm from '../../hooks/useForm';
 import { currenciesListSelector, projectSelector } from '../../redux/selectors';
 
-// FIXME move this logic to USEFORM
 const INITIAL_VALUES = {
     name: '',
     budget: 0,
@@ -15,13 +14,11 @@ const INITIAL_VALUES = {
 
 const ProjectForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
 
-    const { values, handlers, reset } = useForm(INITIAL_VALUES, project);
+    const { values, handlers, reset } = useForm(INITIAL_VALUES, project, currencies);
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        // FIXME !! newValues (its for defalut currency!) >>
-        const newValues = { ...values, currencyId: (values.currencyId ? values.currencyId : currencies[0].id) };
-        id ? updateProject({...newValues, id}) : addProject(newValues);
+        id ? updateProject({...values, id}) : addProject(values);
         reset();
     };
 

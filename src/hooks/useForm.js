@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useForm = (initialValues, project) => {
+const useForm = (initialValues, project, currencies) => {
 
   const [values, setValues] = useState(initialValues);
 
@@ -11,8 +11,9 @@ const useForm = (initialValues, project) => {
   }
 
   useEffect(() => {
-    setValues({ name: project?.name, budget: project?.budget, currencyId: project?.currency.id });
-  }, [project]);
+    // FIXME - it's not not flexible expression ! ->->
+    setValues({ name: project?.name || '', budget: project?.budget || 0, currencyId: project?.currency.id || currencies[0]?.id || '' });
+  }, [project, currencies]);
 
   return {
     values,

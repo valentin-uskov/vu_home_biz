@@ -8,7 +8,7 @@ const INITIAL_VALUES = {
 
 const useForm = (project, currencies) => {
 
-  const [values, setValues] = useState(INITIAL_VALUES);
+  const [values, setValues] = useState(project);
 
   const setValue = (key, value) => setValues({ ...values, [key]: value });
 
@@ -16,10 +16,10 @@ const useForm = (project, currencies) => {
     setValue(key, ev.target ? ev.target.value : ev);
   }
 
-  useEffect(() => {
+  // useEffect(() => {
     // FIXME - it's not not flexible expression ! ->->
-    setValues({ name: project?.name || '', budget: project?.budget || 0, currencyId: project?.currency.id || currencies[0]?.id || '' });
-  }, [project, currencies]);
+    // setValues({ name: project?.name || '', budget: project?.budget || 0, currencyId: project?.currency.id || currencies[0]?.id || '' });
+  // }, [project, currencies]);
 
   return {
     values,

@@ -20,7 +20,7 @@ const Modal = ({ modalType, projectId }) => {
                 alignItems: 'center',
                 flexDirection: 'column'
             }}>
-            <ProjectForm id={ projectId } />
+            { projectId && <ProjectForm id={ projectId } /> }
         </div>
     );
 }

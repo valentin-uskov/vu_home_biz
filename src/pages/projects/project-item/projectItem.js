@@ -2,9 +2,9 @@ import React from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-import { projectSelector } from '../../redux/selectors';
+import { projectSelector } from '../../../redux/selectors';
 
-import { showProjectFormModal } from '../../redux/actions'
+import { showProjectFormModal } from '../../../redux/actions'
 
 // import EditButton from '../edit-button'
 import DeleteButton from '../delete-button';

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import ProjectsList from '../projects-list';
+
+// import { Route, Switch, Redirect } from 'react-router-dom';
+import ProjectsList from '../../pages/projects/projects-list';
 import SearchForm from '../search-form';
 import Modal from '../modal';
 

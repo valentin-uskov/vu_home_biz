@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
 import ProjectItem from '../project-item'
-import { loadProjects } from '../../redux/actions';
+import { loadProjects } from '../../../redux/actions';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 
@@ -9,7 +9,7 @@ import {
     projectsListSelector,
     projectsLoadingSelector,
     projectsLoadedSelector
-} from '../../redux/selectors';
+} from '../../../redux/selectors';
 
 const ProjectsList = ({ projects, projectsLoading, projectsLoaded, onLoadProjects }) => {
 

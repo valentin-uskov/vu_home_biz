@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-// import { Route, Switch, Redirect } from 'react-router-dom';
-import ProjectsList from '../../pages/projects/projects-list';
-import SearchForm from '../search-form';
+import ErrorPage from '../../pages/error-page';
+import Projects from '../../pages/projects';
+
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Modal from '../modal';
 
 import { showProjectFormModal, loadCurrencies } from '../../redux/actions'
@@ -20,10 +21,16 @@ const App = ({ showAddingModal, onLoadApp }) => {
         <section>
           <button onClick={ () => { showAddingModal() } }>!!! ADD NEW !!!</button>
           <Modal />
-          <SearchForm  /*handleChange={} handleSearch={}*/ />
-          <ProjectsList />
+          <Switch>
+            <Redirect exact from="/" to="/projects" />
+            <Route path="/projects" component={Projects} />
+            <Route path="/error" component={ErrorPage} />
+            <Route path="/" component={() => '404 - not found'} />
+          </Switch>
         </section>
       </div>
+
+
   );
 }
 

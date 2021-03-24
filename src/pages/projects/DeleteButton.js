@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deleteProject } from '../../../redux/actions';
+import { deleteProject } from '../../redux/actions';
 
 // import { projectSelector } from '../../redux/selectors';
 

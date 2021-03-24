@@ -6,7 +6,7 @@ import { addProject, updateProject } from '../../redux/actions';
 import useForm from '../../hooks/useForm';
 import { currenciesListSelector, projectSelector } from '../../redux/selectors';
 
-const ProjectForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
+const ProjectDataForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
 
     const { values, handlers, reset } = useForm(project, currencies);
 
@@ -79,4 +79,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDataForm);

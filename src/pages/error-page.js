@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 const ErrorPage = ({ error = 'Unknown error' }) => {
 
-  const errorText = error?.replace(/\$(\d+)/gi, (_, t) => m(t));
-
   return (
     <h1 style={{ textAlign: 'center', margin: 150 }}>
-      <p>{errorText}</p>
+      <p>{ error }</p>
       <div style={{ width: 300, margin: '0 auto' }}>
         <Link to="/">Go home...</Link>
       </div>

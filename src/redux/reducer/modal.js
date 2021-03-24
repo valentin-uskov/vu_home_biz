@@ -4,6 +4,7 @@ import {
 } from '../constants';
 
 const initialState = {
+    isVisible: false,
     modalType: null,
     projectId: null
   }
@@ -14,6 +15,7 @@ const reducer = (state = initialState, action) => {
     switch (type) {
         case SHOW_MODAL:
             return {
+                isVisible: true,
                 modalType: payload.modalType,
                 projectId: payload.projectId || null
             }

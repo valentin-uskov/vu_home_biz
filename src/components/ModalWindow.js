@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { modalTypeSelector, modalProjectIdSelector } from '../../redux/selectors';
-import ProjectForm from '../projectForm';
+import { modalVisibilitySelector, modalProjectIdSelector } from '../redux/selectors';
+import ProjectDataForm from '../pages/projects/ProjectDataForm';
 
-const Modal = ({ modalType, projectId }) => {
+const ModalWindow = ({ isVisible, children }) => {
 
     return (
         <div style={{
-                display: modalType ? 'flex' : 'none',
+                display: isVisible ? 'flex' : 'none',
                 position: 'fixed',
                 zIndex: '9',
                 top: '0',
@@ -20,14 +20,10 @@ const Modal = ({ modalType, projectId }) => {
                 alignItems: 'center',
                 flexDirection: 'column'
             }}>
-            { projectId && <ProjectForm id={ projectId } /> }
+            {/* { projectId && <ProjectForm id={ projectId } /> } */}
+            {/* children */}
         </div>
     );
 }
 
-const mapStateToProps = createStructuredSelector({
-    modalType: modalTypeSelector,
-    projectId: modalProjectIdSelector,
-});
-
-export default connect(mapStateToProps)(Modal);
+export default ModalWindow;

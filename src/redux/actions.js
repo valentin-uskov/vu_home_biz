@@ -16,7 +16,7 @@ import { projectsLoadingSelector, projectsLoadedSelector, currencySelector } fro
 
 import fetch from 'isomorphic-fetch';
 
-export const showProjectFormModal = (projectId) => ({
+export const showEditProjectModal = (projectId) => ({
   type: SHOW_MODAL,
   payload: { modalType: PROJECT_FORM_MODAL, projectId: projectId }
 });

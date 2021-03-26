@@ -1,25 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import { createStructuredSelector } from 'reselect';
+
+import { loadProjects, loadCurrencies } from '../../redux/actions';
+import { CircularProgress } from '@material-ui/core';
 
 import EditProjectModal from './EditProjectModal';
 import ProjectsList from './ProjectsList';
-import SearchForm from '../../components/SearchForm';
+import SearchForm from './SearchForm';
 
-const Projects = () => {
+import { addProject, updateProject } from '../../redux/actions';
 
-//   useEffect(() => {
-//     onLoadApp();
-//   }, [onLoadApp])
+import {
+  projectsListSelector,
+  projectsLoadedSelector
+} from '../../redux/selectors';
+
+const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, onEditProject }) => {
+
+  useEffect(() => {
+    onLoadProjects();
+    onLoadCurrencies();
+  }, [onLoadProjects, onLoadCurrencies])
+
+  const [editingProject, setEditingProject] = useState(null);
+
+  const onSubmitHandler = (values) => {
+    onEditProject(values);
+    setEditingProject(null);
+  }
 
   return (
-        <>
-            <EditProjectModal />
-            <SearchForm  /*handleChange={} handleSearch={}*/ />
-            <ProjectsList />
-        </>
+    <>
+      <EditProjectModal
+        isVisible={!!editingProject}
+        project={editingProject}
+        onSubmit={ onSubmitHandler }
+      />
+      <SearchForm  /*handleChange={} handleSearch={}*/ />
+      {
+        !projectsLoaded
+          ? <CircularProgress />
+          : <ProjectsList
+            editClickHandler={project => setEditingProject(project)}
+            projects={projects}
+            projectsLoaded={projectsLoaded}
+          />
+      }
+    </>
 
   );
 }
 
-export default Projects;
+const mapStateToProps = createStructuredSelector({
+  projectsLoaded: projectsLoadedSelector,
+  projects: projectsListSelector,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadProjects: () => {
+      dispatch(loadProjects());
+    },
+    onLoadCurrencies: () => {
+      dispatch(loadCurrencies());
+    },
+    onEditProject: (values) => {
+      dispatch(updateProject({ ...values }));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);

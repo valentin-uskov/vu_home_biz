@@ -7,19 +7,14 @@ import Projects from '../pages/projects';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ModalWindow from './ModalWindow';
 
-import { showProjectFormModal, loadCurrencies } from '../redux/actions'
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-const App = ({ showAddingModal, onLoadApp }) => {
-
-    useEffect(() => {
-        onLoadApp();
-    }, [onLoadApp])
+const App = () => {
 
     return (
         <div className="App">
             <section>
-            <button onClick={ () => { showAddingModal() } }> ADD NEW </button>
+            <button onClick={ () => console.log('Adding project handler') }> ADD NEW </button>
             <ModalWindow />
             <Switch>
                 <Redirect exact from="/" to="/projects" />
@@ -33,15 +28,4 @@ const App = ({ showAddingModal, onLoadApp }) => {
     );
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        showAddingModal: () => {
-        dispatch(showProjectFormModal());
-        },
-        onLoadApp: () => {
-        dispatch(loadCurrencies());
-        }
-    };
-};
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

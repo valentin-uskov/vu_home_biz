@@ -6,23 +6,30 @@ import { addProject, updateProject } from '../../redux/actions';
 import useForm from '../../hooks/useForm';
 import { currenciesListSelector, projectSelector } from '../../redux/selectors';
 
-const ProjectDataForm = ({ id, project, currencies, addProject, updateProject, onCloseModal }) => {
+// const INITIAL_VALUES = {
+//     name: '',
+//     budget: 0,
+//     currencyId: '5fdb4a5721eb2253ba386da7', /* USD ID */
+// }
 
-    const { values, handlers, reset } = useForm(project, currencies);
+const ProjectDataForm = ({project, onSubmit, currencies}) => {
 
-    const handleSubmit = (ev) => {
-        ev.preventDefault();
-        id ? updateProject({...values, id}) : addProject(values);
-        reset();
-    };
-
-    const handleClose = (ev) => {
-        ev.preventDefault();
-        onCloseModal()
-        reset();
+    const INITIAL_VALUES = {
+        name: project.name,
+        budget: project.budget,
+        currencyId: project.currency.id,
     }
 
-    // if (!project) return null;
+    const { values, handlers, reset } = useForm(INITIAL_VALUES);
+
+    const handleSubmit = (ev) => {
+        // console.log({ ...values, id: project.id });
+        ev.preventDefault();
+        // id ? updateProject({...values, id}) : addProject(values);
+        console.log(values);
+        onSubmit({...values, id: project.id});
+        reset();
+    };
 
     return (
         <form style={{
@@ -35,7 +42,7 @@ const ProjectDataForm = ({ id, project, currencies, addProject, updateProject, o
             }}
             onSubmit={ handleSubmit }
             >
-            <button onClick={ handleClose }>CLOSE</button>
+            {/* <button onClick={ handleClose }>CLOSE</button> */}
             <label>Project Name
                 <input name="name" type="text" { ...handlers.name } />
             </label>
@@ -61,22 +68,7 @@ const ProjectDataForm = ({ id, project, currencies, addProject, updateProject, o
 }
 
 const mapStateToProps = createStructuredSelector({
-    project: projectSelector,
     currencies: currenciesListSelector,
 });
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addProject: (values) => {
-            dispatch(addProject({ ...values }));
-        },
-        updateProject: (values) => {
-            dispatch(updateProject({ ...values }));
-        },
-        onCloseModal: () => {
-            dispatch(hideModal());
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectDataForm);
+export default connect(mapStateToProps)(ProjectDataForm);

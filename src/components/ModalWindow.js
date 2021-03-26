@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { modalVisibilitySelector, modalProjectIdSelector } from '../redux/selectors';
-import ProjectDataForm from '../pages/projects/ProjectDataForm';
 
 const ModalWindow = ({ isVisible, children }) => {
 
@@ -20,8 +16,7 @@ const ModalWindow = ({ isVisible, children }) => {
                 alignItems: 'center',
                 flexDirection: 'column'
             }}>
-            {/* { projectId && <ProjectForm id={ projectId } /> } */}
-            {/* children */}
+            { children }
         </div>
     );
 }

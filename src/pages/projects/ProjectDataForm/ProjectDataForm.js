@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { hideModal } from '../../redux/actions';
-import { addProject, updateProject } from '../../redux/actions';
-import useForm from '../../hooks/useForm';
-import { currenciesListSelector, projectSelector } from '../../redux/selectors';
+import { Button } from '@material-ui/core';
+import { hideModal } from '../../../redux/actions';
+import { addProject, updateProject } from '../../../redux/actions';
+import useForm from '../../../hooks/useForm';
+import { currenciesListSelector, projectSelector } from '../../../redux/selectors';
 
 // const INITIAL_VALUES = {
 //     name: '',
@@ -62,7 +63,12 @@ const ProjectDataForm = ({project, onSubmit, currencies}) => {
                 }
                 </select>
             </label>
-            <button>ADD TO DATA_BASE</button>
+            <Button
+                variant="contained"
+                color="primary"
+            >
+                SAVE
+            </Button>
         </form>
     );
 }

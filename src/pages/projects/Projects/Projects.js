@@ -3,21 +3,19 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 
-import { loadProjects, loadCurrencies } from '../../redux/actions';
 import { CircularProgress } from '@material-ui/core';
 
-import EditProjectModal from './EditProjectModal';
-import ProjectsList from './ProjectsList';
-import SearchForm from './SearchForm';
-
-import { addProject, updateProject } from '../../redux/actions';
+import EditProjectModal from '../EditProjectModal';
+import ProjectsList from '../ProjectsList';
+import SearchForm from '../SearchForm';
+import { loadProjects, loadCurrencies, updateProject, deleteProject } from '../../../redux/actions';
 
 import {
   projectsListSelector,
   projectsLoadedSelector
-} from '../../redux/selectors';
+} from '../../../redux/selectors';
 
-const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, onEditProject }) => {
+const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, onEditProject, onDeleteProject }) => {
 
   useEffect(() => {
     onLoadProjects();
@@ -43,9 +41,10 @@ const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, 
         !projectsLoaded
           ? <CircularProgress />
           : <ProjectsList
-            editClickHandler={project => setEditingProject(project)}
             projects={projects}
             projectsLoaded={projectsLoaded}
+            editClickHandler={project => setEditingProject(project)}
+            deleteClickHandler={onDeleteProject}
           />
       }
     </>
@@ -69,6 +68,9 @@ const mapDispatchToProps = dispatch => {
     onEditProject: (values) => {
       dispatch(updateProject({ ...values }));
     },
+    onDeleteProject: (id) => {
+      dispatch(deleteProject(id))
+    }
   };
 };
 

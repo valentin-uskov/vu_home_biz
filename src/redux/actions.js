@@ -25,8 +25,7 @@ export const hideModal = () => ({ type: HIDE_MODAL });
 
 export const loadProjects = () => async (dispatch, getState) => {
 
-  // ХЗ зачем эта логика и тут и при отображении лоадера при загрузке проектов
-  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!! FIXME
+  // FIXME - logic duplicate
   const state = getState();
   const loading = projectsLoadingSelector(state);
   const loaded = projectsLoadedSelector(state);
@@ -90,7 +89,7 @@ export const addProject = (addingData) => async (dispatch, getState) => {
 
   dispatch({ type: ADD_PROJECT + REQUEST });
 
-  const generatedId = (() => { /* FIXME - move me anywhere */
+  const generatedId = (() => { /* FIXME - move me */
     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
         return (Math.random() * 16 | 0).toString(16);
@@ -160,8 +159,7 @@ export const updateProject = (updatingData) => async (dispatch, getState) => {
 
 export const loadCurrencies = () => async (dispatch, getState) => {
 
-  // ХЗ зачем эта логика и тут и при отображении лоадера при загрузке проектов
-  // (Дублирование логики - взял из курсов - там тоже так) ПОЧЕМУ? ЗАЧЕМ? !!!! FIXME
+  // FIXME - logic duplicate
   const state = getState();
   const loaded = projectsLoadedSelector(state);
 
@@ -171,7 +169,7 @@ export const loadCurrencies = () => async (dispatch, getState) => {
 
   try {
     const response = await fetch('http://localhost:3005/graphql', {
-      method: 'POST', /* FIXME ??? ( maybe GET ? not here only )*/
+      method: 'POST', /* FIXME */
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: `
         {

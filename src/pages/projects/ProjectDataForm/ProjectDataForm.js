@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Button } from '@material-ui/core';
-import { hideModal } from '../../../redux/actions';
-import { addProject, updateProject } from '../../../redux/actions';
+import Button from '@material-ui/core/Button';
 import useForm from '../../../hooks/useForm';
-import { currenciesListSelector, projectSelector } from '../../../redux/selectors';
+import { currenciesListSelector } from '../../../redux/selectors';
 
 // const INITIAL_VALUES = {
 //     name: '',

@@ -11,8 +11,8 @@ import history from './history';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={ store }>
-    <ConnectedRouter history={history}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App />
       </ConnectedRouter>
     </Provider>
   </React.StrictMode>,

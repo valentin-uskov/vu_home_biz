@@ -5,67 +5,65 @@ import Button from '@material-ui/core/Button';
 import useForm from '../../../hooks/useForm';
 import { currenciesListSelector } from '../../../redux/selectors';
 
-// const INITIAL_VALUES = {
-//     name: '',
-//     budget: 0,
-//     currencyId: '5fdb4a5721eb2253ba386da7', /* USD ID */
-// }
-
-const ProjectDataForm = ({project, onSubmit, currencies}) => {
+const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
 
     const INITIAL_VALUES = {
-        name: project.name,
-        budget: project.budget,
-        currencyId: project.currency.id,
+        name: project?.name || '',
+        budget: project?.budget || '',
+        currencyId: project?.currency.id || currencies[0]?.id,
     }
 
     const { values, handlers, reset } = useForm(INITIAL_VALUES);
 
     const handleSubmit = (ev) => {
-        // console.log({ ...values, id: project.id });
         ev.preventDefault();
-        // id ? updateProject({...values, id}) : addProject(values);
-        console.log(values);
-        onSubmit({...values, id: project.id});
+        project ? onSubmit({ ...values, id: project.id }) : onSubmit({ ...values });
         reset();
     };
 
     return (
         <form style={{
-                display: 'flex',
-                flexDirection: 'column',
-                height: '220px',
-                justifyContent: 'space-between',
-                backgroundColor: '#fff',
-                padding: '30px'
-            }}
-            onSubmit={ handleSubmit }
-            >
-            {/* <button onClick={ handleClose }>CLOSE</button> */}
+            display: 'flex',
+            flexDirection: 'column',
+            height: '220px',
+            justifyContent: 'space-between',
+            backgroundColor: '#fff',
+            padding: '30px'
+        }}
+            onSubmit={handleSubmit}
+        >
             <label>Project Name
-                <input name="name" type="text" { ...handlers.name } />
+                <input name="name" type="text" {...handlers.name} />
             </label>
             <label>budget
-                <input name="budget" type="number" { ...handlers.budget } />
+                <input name="budget" type="number" {...handlers.budget} />
             </label>
             <label>currency
-                <select name="currencyId" { ...handlers.currencyId } >
-                {
-                    currencies.map((currency, i) => {
-                        return (
-                            <option key={ currency.id } value={ currency.id }>
-                                { currency.name }
-                            </option>
-                        );
-                    })
-                }
+                <select name="currencyId" {...handlers.currencyId} >
+                    {
+                        currencies.map((currency, i) => {
+                            return (
+                                <option key={currency.id} value={currency.id}>
+                                    { currency.name}
+                                </option>
+                            );
+                        })
+                    }
                 </select>
             </label>
             <Button
+                type="submit"
                 variant="contained"
                 color="primary"
             >
-                SAVE
+                save
+            </Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => { onCancel() }}
+            >
+                cancel
             </Button>
         </form>
     );

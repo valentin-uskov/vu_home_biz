@@ -5,13 +5,11 @@ import { modalIsVisibleSelector, modalProjectIdSelector } from '../../../redux/s
 import ProjectDataForm from '../ProjectDataForm';
 import ModalWindow from '../../../components/ModalWindow';
 
-const EditProjectModal = ({ isVisible, project, onSubmit }) => {
-
-    // if (!projectId) return null; */
+const EditProjectModal = ({ isVisible, ...otherProps }) => {
 
     return (
         <ModalWindow isVisible={ isVisible } >
-            { project && <ProjectDataForm project={ project } onSubmit={ onSubmit } /> }
+            {isVisible && <ProjectDataForm {...otherProps} />}
         </ModalWindow>
     );
 }

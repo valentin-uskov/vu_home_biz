@@ -5,7 +5,7 @@ import {
     FAILURE,
 } from './constants';
 
-import { arrToMap } from '../../redux/utils';
+import { arrToMap } from '../../modules/arrayShortcuts';
 
 const initialState = {
     loaded: false,

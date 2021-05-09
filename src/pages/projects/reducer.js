@@ -8,7 +8,7 @@ import {
     FAILURE,
 } from './constants';
 
-import { arrToMap } from '../../redux/utils';
+import { arrToMap } from '../../modules/arrayShortcuts';
 
 const initialState = {
     loading: false,
@@ -21,25 +21,27 @@ const reducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
+
         case LOAD_PROJECTS + REQUEST:
             return {
                 ...state,
                 loading: true,
             };
         case LOAD_PROJECTS + SUCCESS:
-        return {
+            return {
                 ...state,
                 entities: { ...arrToMap(payload.projects) },
                 loading: false,
                 loaded: true,
             };
         case LOAD_PROJECTS + FAILURE:
-        return {
-            ...state,
-            loading: false,
-            loaded: false,
-            error: action.error,
-        };
+            return {
+                ...state,
+                loading: false,
+                loaded: false,
+                error: action.error,
+            };
+
         case DELETE_PROJECT + REQUEST:
             return {
                 ...state
@@ -55,6 +57,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error,
             };
+
         case ADD_PROJECT + REQUEST:
             return {
                 ...state
@@ -81,6 +84,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error,
             };
+
         case UPDATE_PROJECT + REQUEST:
             return {
                 ...state

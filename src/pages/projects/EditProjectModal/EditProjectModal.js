@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { modalIsVisibleSelector, modalProjectIdSelector } from '../../../redux/selectors';
+import React from 'react';
 import ProjectDataForm from '../ProjectDataForm';
 import ModalWindow from '../../../components/ModalWindow';
 

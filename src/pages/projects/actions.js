@@ -11,6 +11,7 @@ import {
 } from './constants';
 
 import { currencySelector } from '../../redux/selectors';
+import { generatedId } from '../../modules/idGenerator';
 
 export const loadProjects = (name = '') => async (dispatch) => {
 
@@ -39,21 +40,13 @@ export const addProject = (addingData) => async (dispatch, getState) => {
 
   dispatch({ type: ADD_PROJECT + REQUEST });
 
-  const generatedId = (() => { /* FIXME */
-    var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function () {
-      return (Math.random() * 16 | 0).toString(16);
-    }).toLowerCase();
-  })();
-
-  addingData.id = generatedId; /* FIXME */
-
-  const state = getState();
   try {
-    const { id, name, budget, currencyId } = addingData;
+    const { name, budget, currencyId } = addingData;
+    const id = generatedId;
+    const state = getState();
     const currency = currencySelector(state, { id: currencyId });
 
-    await api.addProject(addingData);
+    await api.addProject({ id, name, budget, currencyId });
     dispatch({ type: ADD_PROJECT + SUCCESS, payload: { id, name, budget, currency } });
   } catch (error) {
     dispatch({ type: ADD_PROJECT + FAILURE, error });

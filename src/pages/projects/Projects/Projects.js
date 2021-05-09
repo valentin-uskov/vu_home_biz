@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditProjectModal from '../EditProjectModal';
 import ProjectsList from '../ProjectsList';
 import SearchForm from '../SearchForm';
+
 import { loadProjects, loadCurrencies, addProject, updateProject, deleteProject } from '../../../redux/actions';
 
 import {
@@ -17,7 +18,14 @@ import {
   projectsLoadedSelector
 } from '../../../redux/selectors';
 
-const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, onAddProject, onEditProject, onDeleteProject }) => {
+const Projects = ({ projects,
+                    projectsLoaded,
+                    onLoadProjects,
+                    onLoadCurrencies,
+                    onAddProject,
+                    onEditProject,
+                    onDeleteProject,
+                    onSearchProject }) => {
 
   useEffect(() => {
     onLoadProjects();
@@ -42,6 +50,10 @@ const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, 
     setEditingProject(null);
   }
 
+  const onSearchHandler = (searchQuery) => {
+    onSearchProject(searchQuery);
+  }
+
   return (
     <>
       <EditProjectModal
@@ -50,7 +62,7 @@ const Projects = ({ projects, projectsLoaded, onLoadProjects, onLoadCurrencies, 
         onSubmit={onSubmitHandler}
         onCancel={onCancelHandler}
       />
-      <SearchForm />
+      <SearchForm onSearch={onSearchHandler} />
       {
         !projectsLoaded
           ? <CircularProgress />
@@ -93,6 +105,9 @@ const mapDispatchToProps = dispatch => {
     },
     onDeleteProject: (id) => {
       dispatch(deleteProject(id))
+    },
+    onSearchProject: (query) => {
+      dispatch(loadProjects(query))
     }
   };
 };

@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
 
-const SearchForm = ({ handleChange, handleSearch }) => {
+const SearchForm = ({ onSearch }) => {
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = () => {
+        onSearch(searchQuery);
+    }
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleSearch();
+        }
+    }
 
     return (
-        <div>
+        <form>
             <input
                 style={{'width': 'calc(100% - 40px)', 'padding': '10px', 'margin': '20px 0' }}
-                onChange={ (e) => { handleChange(e) } }
-                onKeyPress={(e) => handleSearch(e)}
-                placeholder="Input your search query and press ENTER"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => handleKeyPress(e)}
+                placeholder="Your search query..."
             />
-            <button onClick={(e) => handleSearch(e)}>SEARCH</button>
-        </div>
+            <Button
+                variant="contained"
+                color="primary"
+                startIcon={<SearchIcon />}
+                onClick={() => handleSearch()}
+            >
+                Search
+            </Button>
+        </form>
     );
 }
 

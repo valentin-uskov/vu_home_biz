@@ -23,14 +23,7 @@ export const showEditProjectModal = (projectId) => ({
 
 export const hideModal = () => ({ type: HIDE_MODAL });
 
-export const loadProjects = () => async (dispatch, getState) => {
-
-  // FIXME - logic duplicate
-  const state = getState();
-  const loading = projectsLoadingSelector(state);
-  const loaded = projectsLoadedSelector(state);
-
-  if (loading || loaded) return;
+export const loadProjects = (name = '') => async (dispatch, getState) => {
 
   dispatch({ type: LOAD_PROJECTS + REQUEST });
 
@@ -40,7 +33,7 @@ export const loadProjects = () => async (dispatch, getState) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: `
         {
-          projects(name: "") {
+          projects(name: "${name}") {
             id
             name
             budget
@@ -54,7 +47,6 @@ export const loadProjects = () => async (dispatch, getState) => {
       }),
     })
     .then(res => res.json());
-
     dispatch({ type: LOAD_PROJECTS + SUCCESS, payload: { projects: response.data.projects } });
   } catch (error) {
     dispatch({ type: LOAD_PROJECTS + FAILURE, error });

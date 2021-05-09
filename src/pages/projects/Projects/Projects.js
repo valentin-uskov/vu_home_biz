@@ -43,6 +43,7 @@ const Projects = ({ projects,
   const onSubmitHandler = (values) => {
     values.id ? onEditProject(values) : onAddProject(values);
     setEditingProject(null);
+    setEditingModalVisible(false);
   }
 
   const onCancelHandler = () => {

@@ -6,9 +6,9 @@ import {
     REQUEST,
     SUCCESS,
     FAILURE,
-} from '../constants';
+} from './constants';
 
-import { arrToMap } from '../utils';
+import { arrToMap } from '../../redux/utils';
 
 const initialState = {
     loading: false,

@@ -1,4 +1,4 @@
-import * as api from '../api';
+import * as api from '../../api';
 import {
   LOAD_PROJECTS,
   DELETE_PROJECT,
@@ -8,21 +8,11 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
-  SHOW_MODAL,
-  PROJECT_FORM_MODAL,
-  HIDE_MODAL,
 } from './constants';
 
-import { projectsLoadingSelector, projectsLoadedSelector, currencySelector } from './selectors';
+import { currencySelector } from '../../redux/selectors';
 
-export const showEditProjectModal = (projectId) => ({
-  type: SHOW_MODAL,
-  payload: { modalType: PROJECT_FORM_MODAL, projectId: projectId }
-});
-
-export const hideModal = () => ({ type: HIDE_MODAL });
-
-export const loadProjects = (name = '') => async (dispatch, getState) => {
+export const loadProjects = (name = '') => async (dispatch) => {
 
   dispatch({ type: LOAD_PROJECTS + REQUEST });
 
@@ -69,7 +59,6 @@ export const addProject = (addingData) => async (dispatch, getState) => {
     dispatch({ type: ADD_PROJECT + FAILURE, error });
   }
 };
-
 
 export const updateProject = (updatingData) => async (dispatch, getState) => {
   dispatch({ type: UPDATE_PROJECT + REQUEST });

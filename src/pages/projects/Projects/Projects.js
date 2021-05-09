@@ -11,7 +11,7 @@ import EditProjectModal from '../EditProjectModal';
 import ProjectsList from '../ProjectsList';
 import SearchForm from '../SearchForm';
 
-import { loadProjects, loadCurrencies, addProject, updateProject, deleteProject } from '../../../redux/actions';
+import { loadProjects, loadCurrencies, addProject, updateProject, deleteProject } from '../actions';
 
 import {
   projectsListSelector,

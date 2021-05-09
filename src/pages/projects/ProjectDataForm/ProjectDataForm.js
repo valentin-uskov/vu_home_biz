@@ -5,15 +5,18 @@ import Button from '@material-ui/core/Button';
 import useForm from '../../../hooks/useForm';
 import { currenciesListSelector } from '../../../redux/selectors';
 
+const INITIAL_VALUES = currencies => ({
+    name: '',
+    budget: '',
+    currencyId: currencies[0]?.id,
+});
+
 const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
 
-    const INITIAL_VALUES = {
-        name: project?.name || '',
-        budget: project?.budget || '',
-        currencyId: project?.currency.id || currencies[0]?.id,
-    }
-
-    const { values, handlers, reset } = useForm(INITIAL_VALUES);
+    const { values, handlers, reset } =
+        useForm(project
+            ? { ...project, currencyId: project.currency.id }
+            : INITIAL_VALUES(currencies));
 
     const handleSubmit = (ev) => {
         ev.preventDefault();

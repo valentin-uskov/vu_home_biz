@@ -11,7 +11,7 @@ const StyledProjectListItem = styled.li`
     padding: 0.5em;
 
     &:nth-child(even) {
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.05);
     }
 
     & > button {

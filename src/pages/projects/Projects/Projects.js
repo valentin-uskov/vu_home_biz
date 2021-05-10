@@ -13,7 +13,9 @@ import { projectsListSelector, projectsLoadedSelector } from '../../../redux/sel
 import Heading from '../../../components/Heading';
 
 const StyledProjects = styled.div`
+  max-width: 960px;
   padding: 2em;
+  margin: 0 auto;
 `;
 
 const Projects = ({ projects,

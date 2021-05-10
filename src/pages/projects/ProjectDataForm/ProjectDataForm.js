@@ -2,8 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import CloseIcon from '@material-ui/icons/Close';
+import SaveIcon from '@material-ui/icons/Save';
+import Box from '@material-ui/core/Box';
 import useForm from '../../../hooks/useForm';
 import { currenciesListSelector } from '../../../redux/selectors';
+import styled from 'styled-components';
+
+const StyledProjectDataForm = styled.form`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #FFFFFF;
+    padding: 2em;
+    border-radius: .5em;
+    max-width: 420px;
+
+    & > *:nth-child(1) {
+        width: 100%;
+    }
+
+    & > * {
+        width: calc(50% - 0.2em);
+    }
+`;
 
 const INITIAL_VALUES = currencies => ({
     name: '',
@@ -25,50 +49,66 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
     };
 
     return (
-        <form style={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '220px',
-            justifyContent: 'space-between',
-            backgroundColor: '#fff',
-            padding: '30px'
-        }}
-            onSubmit={handleSubmit}
-        >
-            <label>Project Name
-                <input name="name" type="text" {...handlers.name} />
-            </label>
-            <label>budget
-                <input name="budget" type="number" {...handlers.budget} />
-            </label>
-            <label>currency
-                <select name="currencyId" {...handlers.currencyId} >
+        <StyledProjectDataForm onSubmit={handleSubmit}>
+            <Box mb={1}>
+                <TextField
+                    label="Project Name"
+                    variant="outlined"
+                    name="name"
+                    type="text"
+                    margin="none"
+                    fullWidth={true}
+                    {...handlers.name}
+                />
+            </Box>
+            <Box mb={1}>
+                <TextField
+                    label="Budget"
+                    variant="outlined"
+                    name="budget"
+                    type="number"
+                    margin="none"
+                    fullWidth={true}
+                    {...handlers.budget}
+                />
+            </Box>
+            <Box mb={1}>
+                <TextField
+                    select
+                    name="currencyId"
+                    variant="outlined"
+                    margin="none"
+                    {...handlers.currencyId}
+                    fullWidth={true}
+                >
                     {
                         currencies.map((currency, i) => {
                             return (
-                                <option key={currency.id} value={currency.id}>
+                                <MenuItem key={currency.id} value={currency.id}>
                                     { currency.name}
-                                </option>
+                                </MenuItem>
                             );
                         })
                     }
-                </select>
-            </label>
+                </TextField>
+            </Box>
             <Button
                 type="submit"
                 variant="contained"
                 color="primary"
+                startIcon={<SaveIcon />}
             >
                 save
             </Button>
             <Button
                 variant="contained"
                 color="secondary"
+                startIcon={<CloseIcon />}
                 onClick={() => { onCancel() }}
             >
                 cancel
             </Button>
-        </form>
+        </StyledProjectDataForm>
     );
 }
 

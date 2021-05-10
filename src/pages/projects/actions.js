@@ -42,7 +42,7 @@ export const addProject = (addingData) => async (dispatch, getState) => {
 
   try {
     const { name, budget, currencyId } = addingData;
-    const id = generatedId;
+    const id = generatedId();
     const state = getState();
     const currency = currencySelector(state, { id: currencyId });
 

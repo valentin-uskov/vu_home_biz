@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ErrorPage = ({ error = 'Unknown error' }) => {
+const ErrorPage = (error = 'Unknown error') => {
 
   return (
     <h1 style={{ textAlign: 'center', margin: 150 }}>

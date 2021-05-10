@@ -12,7 +12,7 @@ const Router = () => {
                 <Redirect exact from="/" to="/projects" />
                 <Route path="/projects" component={Projects} />
                 <Route path="/error" component={ErrorPage} />
-                <Route path="/" component={() => '404 - not found'} />
+                <Route path="/" component={() => (ErrorPage('#404 - page not found...'))} />
             </Switch>
         </ConnectedRouter>
     )

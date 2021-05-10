@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
-
+import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-
 import EditProjectModal from '../EditProjectModal';
 import ProjectsList from '../ProjectsList';
 import SearchForm from '../SearchForm';
-
 import { loadProjects, loadCurrencies, addProject, updateProject, deleteProject } from '../actions';
+import { projectsListSelector, projectsLoadedSelector } from '../../../redux/selectors';
+import Heading from '../../../components/Heading';
 
-import {
-  projectsListSelector,
-  projectsLoadedSelector
-} from '../../../redux/selectors';
+const StyledProjects = styled.div`
+  padding: 2em;
+`;
 
 const Projects = ({ projects,
                     projectsLoaded,
@@ -42,8 +40,8 @@ const Projects = ({ projects,
 
   const onSubmitHandler = (values) => {
     values.id ? onEditProject(values) : onAddProject(values);
-    setEditingProject(null);
     setEditingModalVisible(false);
+    setEditingProject(null);
   }
 
   const onCancelHandler = () => {
@@ -56,13 +54,14 @@ const Projects = ({ projects,
   }
 
   return (
-    <>
+    <StyledProjects>
       <EditProjectModal
         isVisible={editingModalVisible}
         project={editingProject}
         onSubmit={onSubmitHandler}
         onCancel={onCancelHandler}
       />
+      <Heading>All projects</Heading>
       <SearchForm onSearch={onSearchHandler} />
       {
         !projectsLoaded
@@ -80,7 +79,7 @@ const Projects = ({ projects,
         startIcon={<AddIcon />}
         onClick={() => setEditingModalVisible(true)}
       >Add new project</Button>
-    </>
+    </StyledProjects>
 
   );
 }

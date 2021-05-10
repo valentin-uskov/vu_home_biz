@@ -2,9 +2,39 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
+
+const StyledProjectListItem = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.5em;
+
+    &:nth-child(even) {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    & > button {
+        margin-left: 0.5em;
+    }
+
+    & > * {
+        flex-shrink: 0;
+    }
+
+    & > *:nth-child(1) {
+        width: 100%;
+        flex-shrink: 1;
+    }
+
+    & > *:nth-child(2) {
+        margin: 0 2em;
+        font-weight: 500;
+    }
+`;
 
 const ProjectListItem = ({ project, editClickHandler, deleteClickHandler }) =>
-    <li style={{ display: 'flex', alignItems: 'center' }}>
+    <StyledProjectListItem>
         <h3>{project.name}</h3>
         <span>{project.budget} {project.currency.sign}</span>
         <Button
@@ -23,13 +53,19 @@ const ProjectListItem = ({ project, editClickHandler, deleteClickHandler }) =>
         >
             Delete
         </Button>
-    </li>;
+    </StyledProjectListItem>;
+
+
+const StyledProjectsList = styled.ul`
+    padding: 0;
+    margin: 2em 0;
+`;
 
 const ProjectsList = ({ projects, ...props }) =>
-    <ul>
+    <StyledProjectsList>
         {projects
                 .map(project =>
                     <ProjectListItem key={`project_#${project.id}`} project={project} {...props} />)}
-    </ul>;
+    </StyledProjectsList>;
 
 export default ProjectsList;

@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import history from '../history';
-import ErrorPage from '../pages/error-page';
-import Projects from '../pages/projects';
+import ErrorPage from './error-page';
+import Projects from './projects';
 
 const Router = () => {
     return (

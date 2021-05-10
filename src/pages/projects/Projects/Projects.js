@@ -45,6 +45,7 @@ const Projects = ({ projects,
     values.id ? onEditProject(values) : onAddProject(values);
     setEditingModalVisible(false);
     setEditingProject(null);
+
   }
 
   const onCancelHandler = () => {

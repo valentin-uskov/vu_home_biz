@@ -42,13 +42,14 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
         useForm(project
             ? { ...project, currencyId: project.currency.id }
             : INITIAL_VALUES(currencies));
-
     const handleSubmit = (ev) => {
         ev.preventDefault();
 
         project ? onSubmit({ ...values, id: project.id }) : onSubmit({ ...values });
         reset();
     };
+
+    console.log(handlers.currencyId)
 
     return (
         <StyledProjectDataForm onSubmit={handleSubmit}>

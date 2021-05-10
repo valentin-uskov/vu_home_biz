@@ -70,15 +70,7 @@ const reducer = (state = initialState, action) => {
                 loaded: true,
                 entities: {
                     ...state.entities,
-                    [payload.id]: {
-                        id: payload.id,
-                        name: payload.name,
-                        budget: payload.budget,
-                        currency: {
-                            name: payload.currency.name,
-                            sign: payload.currency.sign,
-                        }
-                    }
+                    [payload.id]: payload,
                 }
             };
         case ADD_PROJECT + FAILURE:
@@ -99,15 +91,7 @@ const reducer = (state = initialState, action) => {
                 loaded: true,
                 entities: {
                     ...state.entities,
-                    [payload.id]: {
-                        id: payload.id,
-                        name: payload.name,
-                        budget: payload.budget,
-                        currency: {
-                            name: payload.currency.name,
-                            sign: payload.currency.sign,
-                        }
-                    }
+                    [payload.id]: payload,
                 }
             };
         case UPDATE_PROJECT + FAILURE:

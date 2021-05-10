@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
 import EditProjectModal from '../EditProjectModal';
 import ProjectsList from '../ProjectsList';
@@ -65,16 +66,16 @@ const Projects = ({ projects,
       />
       <Heading>Projects</Heading>
       <SearchForm onSearch={onSearchHandler} />
-      {
-        !projectsLoaded
-          ? <CircularProgress />
-          : <ProjectsList
+
+      <ProjectsList
             projects={projects}
             projectsLoaded={projectsLoaded}
             editClickHandler={project => editProject(project)}
             deleteClickHandler={onDeleteProject}
-          />
-      }
+      />
+
+      { !projectsLoaded && <Box m={4}><CircularProgress /></Box> }
+
       <Button
         variant="contained"
         color="primary"

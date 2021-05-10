@@ -45,6 +45,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
+
         project ? onSubmit({ ...values, id: project.id }) : onSubmit({ ...values });
         reset();
     };
@@ -53,6 +54,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
         <StyledProjectDataForm onSubmit={handleSubmit}>
             <Box mb={2}>
                 <TextField
+                    required
                     label="Project Name"
                     variant="outlined"
                     name="name"

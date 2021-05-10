@@ -11,7 +11,6 @@ import {
 import { arrToMap } from '../../modules/arrayShortcuts';
 
 const initialState = {
-    loading: false,
     loaded: false,
     error: null,
     entities: {},
@@ -25,47 +24,50 @@ const reducer = (state = initialState, action) => {
         case LOAD_PROJECTS + REQUEST:
             return {
                 ...state,
-                loading: true,
             };
         case LOAD_PROJECTS + SUCCESS:
             return {
                 ...state,
                 entities: { ...arrToMap(payload.projects) },
-                loading: false,
                 loaded: true,
             };
         case LOAD_PROJECTS + FAILURE:
             return {
                 ...state,
-                loading: false,
                 loaded: false,
                 error: action.error,
             };
 
         case DELETE_PROJECT + REQUEST:
             return {
-                ...state
+                ...state,
+                loaded: false,
             };
         case DELETE_PROJECT + SUCCESS:
             const { [payload.id]: value, ...withoutDeleted } = state.entities;
             return {
                 ...state,
-                entities: { ...withoutDeleted }
+                entities: { ...withoutDeleted },
+                loaded: true,
+
             };
         case DELETE_PROJECT + FAILURE:
             return {
                 ...state,
                 error: action.error,
+                loaded: false,
             };
 
         case ADD_PROJECT + REQUEST:
             return {
-                ...state
+                ...state,
+                loaded: false,
             };
         case ADD_PROJECT + SUCCESS:
 
             return {
                 ...state,
+                loaded: true,
                 entities: {
                     ...state.entities,
                     [payload.id]: {
@@ -83,15 +85,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error,
+                loaded: false,
             };
 
         case UPDATE_PROJECT + REQUEST:
             return {
-                ...state
+                ...state,
+                loaded: false,
             };
         case UPDATE_PROJECT + SUCCESS:
             return {
                 ...state,
+                loaded: true,
                 entities: {
                     ...state.entities,
                     [payload.id]: {
@@ -109,6 +114,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error,
+                loaded: false,
             };
         default:
             return state;

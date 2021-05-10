@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectDataForm from '../ProjectDataForm';
 import ModalWindow from '../../../components/ModalWindow';
 
-const EditProjectModal = ({ isVisible, ...otherProps }) => {
+const ProjectModal = ({ isVisible, ...otherProps }) => {
 
     return (
         <ModalWindow isVisible={ isVisible } >
@@ -11,4 +11,4 @@ const EditProjectModal = ({ isVisible, ...otherProps }) => {
     );
 }
 
-export default EditProjectModal;
+export default ProjectModal;

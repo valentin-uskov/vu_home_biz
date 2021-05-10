@@ -4,9 +4,8 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
-import EditProjectModal from '../EditProjectModal';
+import ProjectModal from '../ProjectModal';
 import ProjectsList from '../ProjectsList';
 import SearchForm from '../SearchForm';
 import { loadProjects, loadCurrencies, addProject, updateProject, deleteProject } from '../actions';
@@ -76,7 +75,7 @@ const Projects = ({ projects,
 
   return (
     <StyledProjects>
-      <EditProjectModal
+      <ProjectModal
         isVisible={editingModalVisible}
         project={editingProject}
         onSubmit={onSubmitHandler}

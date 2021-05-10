@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Hidden from '@material-ui/core/Hidden';
 import styled from 'styled-components';
 
 const StyledProjectListItem = styled.li`

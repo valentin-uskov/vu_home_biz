@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case DELETE_PROJECT + SUCCESS:
-            const { [payload.id]: value, ...withoutDeleted } = state.entities; // FIXME
+            const { [payload.id]: value, ...withoutDeleted } = state.entities;
             return {
                 ...state,
                 entities: { ...withoutDeleted }

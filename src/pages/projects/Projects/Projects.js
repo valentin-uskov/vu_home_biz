@@ -63,7 +63,7 @@ const Projects = ({ projects,
         onSubmit={onSubmitHandler}
         onCancel={onCancelHandler}
       />
-      <Heading>All projects</Heading>
+      <Heading>Projects</Heading>
       <SearchForm onSearch={onSearchHandler} />
       {
         !projectsLoaded

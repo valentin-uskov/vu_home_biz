@@ -32,11 +32,19 @@ const SearchForm = ({ onSearch }) => {
         }
     }
 
+    const handleChange = (e) => {
+        setSearchQuery(e.target.value);
+
+        if (e.target.value === '') {
+            onSearch('');
+        }
+    }
+
     return (
         <StyledSearchForm>
             <Input
                 fullWidth={true}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleChange}
                 onKeyPress={(e) => handleKeyPress(e)}
                 placeholder="Your search query..."
             />

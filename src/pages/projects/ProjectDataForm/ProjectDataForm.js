@@ -68,6 +68,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
                     variant="outlined"
                     name="budget"
                     type="number"
+                    InputProps={{ inputProps: { min: 0 } }}
                     margin="none"
                     fullWidth={true}
                     {...handlers.budget}

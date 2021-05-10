@@ -17,6 +17,7 @@ const StyledProjectDataForm = styled.form`
     justify-content: space-between;
     background: #FFFFFF;
     padding: 2em;
+    margin: 1em;
     border-radius: .5em;
     max-width: 420px;
 
@@ -25,13 +26,13 @@ const StyledProjectDataForm = styled.form`
     }
 
     & > * {
-        width: calc(50% - 0.2em);
+        width: calc(50% - 0.4em);
     }
 `;
 
 const INITIAL_VALUES = currencies => ({
     name: '',
-    budget: '',
+    budget: 0,
     currencyId: currencies[0]?.id,
 });
 
@@ -50,7 +51,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
 
     return (
         <StyledProjectDataForm onSubmit={handleSubmit}>
-            <Box mb={1}>
+            <Box mb={2}>
                 <TextField
                     label="Project Name"
                     variant="outlined"
@@ -61,7 +62,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
                     {...handlers.name}
                 />
             </Box>
-            <Box mb={1}>
+            <Box mb={2}>
                 <TextField
                     label="Budget"
                     variant="outlined"
@@ -72,7 +73,7 @@ const ProjectDataForm = ({ project, onSubmit, onCancel, currencies }) => {
                     {...handlers.budget}
                 />
             </Box>
-            <Box mb={1}>
+            <Box mb={2}>
                 <TextField
                     select
                     name="currencyId"

@@ -12,7 +12,7 @@ const appTheme = {
 
     },
     media: {
-
+        mobile: '(max-width: 768px)',
     }
 }
 

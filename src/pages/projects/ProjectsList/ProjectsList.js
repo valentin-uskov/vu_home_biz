@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Hidden from '@material-ui/core/Hidden';
 import styled from 'styled-components';
 
 const StyledProjectListItem = styled.li`
@@ -30,6 +31,28 @@ const StyledProjectListItem = styled.li`
     & > *:nth-child(2) {
         margin: 0 2em;
         font-weight: 500;
+    }
+
+
+    @media ${props => props.theme.media.mobile } {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 0 1em 0;
+
+        & > *:nth-child(1) {
+            width: calc(100% - 10em);
+        }
+
+        & > *:nth-child(2) {
+            margin: 0 0 0 1em;
+        }
+
+        & > *:nth-last-child(2),
+        & > *:last-child {
+            width: calc(50% - 1em);
+            margin: 0.5em 0 0 0;
+        }
+
     }
 `;
 

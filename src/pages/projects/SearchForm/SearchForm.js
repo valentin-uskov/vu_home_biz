@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import Input from '@material-ui/core/Input';
 import styled from 'styled-components';
+import Hidden from '@material-ui/core/Hidden';
 
 const StyledSearchForm = styled.form`
     display: flex;
@@ -45,7 +46,7 @@ const SearchForm = ({ onSearch }) => {
                 startIcon={<SearchIcon />}
                 onClick={() => handleSearch()}
             >
-                Search
+                <Hidden xsDown>Search</Hidden>
             </Button>
         </StyledSearchForm>
     );

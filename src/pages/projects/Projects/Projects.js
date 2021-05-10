@@ -19,6 +19,23 @@ const StyledProjects = styled.div`
   margin: 0 auto;
 `;
 
+const ProjectsListWrap = styled.div`
+  position: relative;
+`;
+
+const ProjectsPreloader = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+`;
+
 const Projects = ({ projects,
                     projectsLoaded,
                     onLoadProjects,
@@ -68,15 +85,15 @@ const Projects = ({ projects,
       <Heading>Projects</Heading>
       <SearchForm onSearch={onSearchHandler} />
 
-      <ProjectsList
-            projects={projects}
-            projectsLoaded={projectsLoaded}
-            editClickHandler={project => editProject(project)}
-            deleteClickHandler={onDeleteProject}
-      />
-
-      { !projectsLoaded && <Box m={4}><CircularProgress /></Box> }
-
+      <ProjectsListWrap>
+        { !projectsLoaded && <ProjectsPreloader m={4}><CircularProgress /></ProjectsPreloader> }
+        <ProjectsList
+              projects={projects}
+              projectsLoaded={projectsLoaded}
+              editClickHandler={project => editProject(project)}
+              deleteClickHandler={onDeleteProject}
+        />
+      </ProjectsListWrap>
       <Button
         variant="contained"
         color="primary"

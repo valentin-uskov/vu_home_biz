@@ -24,6 +24,7 @@ const reducer = (state = initialState, action) => {
         case LOAD_PROJECTS + REQUEST:
             return {
                 ...state,
+                loaded: false,
             };
         case LOAD_PROJECTS + SUCCESS:
             return {
